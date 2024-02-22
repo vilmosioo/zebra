@@ -1,2 +1,3 @@
-# zebra
+# Zebra
+
 A finch data explorer
