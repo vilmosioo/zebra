@@ -1,8 +1,6 @@
 name: Build
 
 on:
-  push:
-    branches: [ "develop" ]
   pull_request:
     branches: [ "develop" ]
 
@@ -22,10 +20,3 @@ jobs:
       run: |
         npm install
         npm run build --workspaces
-
-    - name: Archive production artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: zebra-app-${{ github.sha }}
-        path: |
-          packages/zebra-app/build
