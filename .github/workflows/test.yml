@@ -1,4 +1,4 @@
-name: Build
+name: Test
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "develop" ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,7 +18,7 @@ jobs:
       with:
         node-version: 16.x
 
-    - name: Build
+    - name: Test
       run: |
         npm install
-        npm run build --workspaces
+        npm run test --workspaces
