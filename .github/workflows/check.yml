@@ -21,6 +21,7 @@ jobs:
     - name: Test
       run: |
         npm install
+        git diff --exit-status
         npm run test --workspaces
 
   lint:
