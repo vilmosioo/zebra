@@ -19,5 +19,5 @@ jobs:
     - name: Build
       run: |
         npm install
-        git diff --exit-status
+        git diff --exit-code
         npm run build --workspaces
