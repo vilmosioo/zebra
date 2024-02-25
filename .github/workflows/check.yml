@@ -1,4 +1,4 @@
-name: Test
+name: Check
 
 on:
   push:
@@ -22,3 +22,20 @@ jobs:
       run: |
         npm install
         npm run test --workspaces
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js 16.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+
+    - name: Lint
+      run: |
+        npm install
+        npm run lint --workspaces
+      
