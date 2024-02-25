@@ -38,5 +38,6 @@ jobs:
     - name: Lint
       run: |
         npm install
+        git diff --exit-code
         npm run lint --workspaces
       
