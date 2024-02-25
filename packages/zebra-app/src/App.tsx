@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import CalendarHeatmap from "react-calendar-heatmap";
+import CalendarHeatmap from 'react-calendar-heatmap';
 
 function App() {
   const values = [{
