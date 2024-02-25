@@ -20,7 +20,7 @@ jobs:
 
     - name: Test
       run: |
-        npm ci
+        npm i
         git diff --exit-code
         npm run test --workspaces
 
@@ -37,7 +37,7 @@ jobs:
 
     - name: Lint
       run: |
-        npm ci
+        npm i
         git diff --exit-code
         npm run lint --workspaces
       

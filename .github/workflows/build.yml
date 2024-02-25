@@ -18,6 +18,6 @@ jobs:
 
     - name: Build
       run: |
-        npm ci
+        npm i
         git diff --exit-code
         npm run build --workspaces
