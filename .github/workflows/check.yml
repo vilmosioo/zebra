@@ -39,5 +39,5 @@ jobs:
       run: |
         npm i
         git diff --exit-code
-        npm run lint --workspaces
+        npm run lint
       

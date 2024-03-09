@@ -2,6 +2,12 @@
   "name": "zebra",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "npm run start --workspaces",
+    "build": "npm run build --workspaces",
+    "lint": "npm run lint --workspaces",
+    "test": "npm run test --workspaces"
+  },
   "workspaces": [
     "packages/*"
   ]
