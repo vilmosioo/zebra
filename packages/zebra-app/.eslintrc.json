@@ -18,6 +18,8 @@
     ],
     "rules": {
         "quotes": ["error", "double"],
-        "@stylistic/semi": ["error", "always"]
+        "@stylistic/semi": ["error", "always"],
+        "@stylistic/no-multi-spaces": ["error"],
+        "indent": ["error", 2]
     }
 }
