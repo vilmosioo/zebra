@@ -1,24 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import CalendarHeatmap from "react-calendar-heatmap";
 
 function App() {
+  const values = [{
+    date: new Date(),
+    value: 1
+  }];
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Isaac is awesome 😘
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="app">
+      <header className="app-header">
+        Zebra
       </header>
+      <div>
+        <CalendarHeatmap values={values} />
+      </div>
     </div>
   );
 }
