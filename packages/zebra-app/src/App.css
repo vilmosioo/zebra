@@ -14,3 +14,7 @@
   fill: red !important;
   opacity: 0.5;
 }
+
+rect { 
+  transition: fill 0.3s;
+}
