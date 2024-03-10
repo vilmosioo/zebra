@@ -20,6 +20,7 @@
         "quotes": ["error", "double"],
         "@stylistic/semi": ["error", "always"],
         "@stylistic/no-multi-spaces": ["error"],
-        "indent": ["error", 2]
+        "indent": ["error", 2],
+        "no-console": ["error", { "allow": ["warn", "error"] }]
     }
 }

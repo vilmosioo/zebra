@@ -6,15 +6,6 @@
   text-align: center;
 }
 
-.color-github-0 {
-  fill: red !important;
-}
-
-.color-github-1 {
-  fill: red !important;
-  opacity: 0.5;
-}
-
 rect { 
   transition: fill 0.3s;
 }
