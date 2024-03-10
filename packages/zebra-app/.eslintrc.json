@@ -13,9 +13,13 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "@stylistic"
     ],
     "rules": {
-        "quotes": ["error", "double"]
+        "quotes": ["error", "double"],
+        "@stylistic/semi": ["error", "always"],
+        "@stylistic/no-multi-spaces": ["error"],
+        "indent": ["error", 2]
     }
 }
