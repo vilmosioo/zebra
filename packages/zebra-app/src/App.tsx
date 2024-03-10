@@ -1,11 +1,12 @@
 import * as React from "react";
 import "./App.css";
 import * as zip from "@zip.js/zip.js";
-import { IMood, IRawMood } from "./finch";
+import { IGoal, IMood, IRawBullet, IRawMood } from "./finch";
 import { CalendarHeatmap } from "./CalendarHeatmap";
 
 function App() {
   const [values, setValues] = React.useState<IMood[]>([]);
+  const [goals, setGoals] = React.useState<IGoal[]>([]);
   const onFileDrop = React.useCallback(async (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
@@ -22,11 +23,19 @@ function App() {
       const zipReader = new zip.ZipReader(new zip.BlobReader(file));
       const helloWorldWriter = new zip.TextWriter();
       const contents = await zipReader.getEntries();
+      
       const moodFile = contents.find(content => content.filename === "Mood.json");
       const mood = JSON.parse(await moodFile?.getData?.(helloWorldWriter) ?? "{\"data\": []}")?.data as IRawMood[];
       setValues(mood.map(m => ({
         date: new Date(m.updated_time),
         value: m.value,
+      })));
+
+      const goalFile = contents.find(content => content.filename === "Bullet.json");
+      const goals = JSON.parse(await moodFile?.getData?.(helloWorldWriter) ?? "{\"data\": []}")?.data as IRawBullet[];
+      setGoals(goals.map(m => ({
+        date: new Date(m.date),
+        isCompleted: m.completed_time != null,
       })));
       await zipReader.close();
     } else {
@@ -44,7 +53,7 @@ function App() {
         Zebra
       </header>
       <div>
-        <CalendarHeatmap values={values} />
+        <CalendarHeatmap values={values} goals={goals} />
       </div>
     </div>
   );

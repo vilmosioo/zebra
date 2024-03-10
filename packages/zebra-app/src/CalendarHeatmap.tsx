@@ -1,10 +1,11 @@
 import * as React from "react";
 import OriginalCalendarHeatmap, { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
-import { IMood } from "./finch";
+import { IGoal, IMood } from "./finch";
 import styles from "./CalendarHeatmap.module.css";
 
 interface IHeatMapProps {
     values: IMood[];
+    goals: IGoal[];
 }
 
 // eslint-disable-next-line no-console
