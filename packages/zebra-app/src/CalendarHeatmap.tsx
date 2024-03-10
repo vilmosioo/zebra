@@ -8,10 +8,7 @@ interface IHeatMapProps {
     goals: IGoal[];
 }
 
-// eslint-disable-next-line no-console
-console.log(styles);
-
-export const CalendarHeatmap = function({ values }: IHeatMapProps) {
+export const CalendarHeatmap = function({ values, goals }: IHeatMapProps) {
   const classForValue = React.useCallback((value: ReactCalendarHeatmapValue<Date> | undefined) => {
     switch(value?.value) {
     case "1":
@@ -29,5 +26,7 @@ export const CalendarHeatmap = function({ values }: IHeatMapProps) {
       return "color-empty";
     }
   }, []);
+  // eslint-disable-next-line no-console
+  console.log(goals);
   return <OriginalCalendarHeatmap values={values} classForValue={classForValue} />;
 };

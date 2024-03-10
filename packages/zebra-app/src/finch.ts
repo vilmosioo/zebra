@@ -6,6 +6,7 @@ export interface IMood {
 export interface IGoal {
   isCompleted: boolean;
   date: Date;
+  name: string;
 }
   
 export enum MoodType {
@@ -23,6 +24,6 @@ export interface IRawMood {
 
 export interface IRawBullet {
   text: string;
-  date: string;
+  dt: string;
   completed_time: string;       
 }
