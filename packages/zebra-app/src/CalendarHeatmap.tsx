@@ -1,14 +1,17 @@
 import * as React from "react";
 import OriginalCalendarHeatmap, { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
-import { IGoal, IMood } from "./finch";
 import styles from "./CalendarHeatmap.module.css";
 
-interface IHeatMapProps {
-    values: IMood[];
-    goals: IGoal[];
+interface IHeatmapValue {
+  date: Date;
+  value: any;
 }
 
-export const CalendarHeatmap = function({ values, goals }: IHeatMapProps) {
+interface IHeatMapProps {
+    values: IHeatmapValue[];
+}
+
+export const CalendarHeatmap = function({ values }: IHeatMapProps) {
   const classForValue = React.useCallback((value: ReactCalendarHeatmapValue<Date> | undefined) => {
     switch(value?.value) {
     case "1":
@@ -26,7 +29,5 @@ export const CalendarHeatmap = function({ values, goals }: IHeatMapProps) {
       return "color-empty";
     }
   }, []);
-  // eslint-disable-next-line no-console
-  console.log(goals);
   return <OriginalCalendarHeatmap values={values} classForValue={classForValue} />;
 };

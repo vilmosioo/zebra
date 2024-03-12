@@ -3,10 +3,13 @@ import "./App.css";
 import * as zip from "@zip.js/zip.js";
 import { IGoal, IMood, IRawBullet, IRawMood } from "./finch";
 import { CalendarHeatmap } from "./CalendarHeatmap";
+import { Select } from "@blueprintjs/select";
+import { CalendarTypeSelect } from "./CalendarTypeSelect";
 
 function App() {
-  const [values, setValues] = React.useState<IMood[]>([]);
+  const [moods, setMoods] = React.useState<IMood[]>([]);
   const [goals, setGoals] = React.useState<IGoal[]>([]);
+  const [selectedGoal, setSelectedGoal] = React.useState<string | null>(null);
   const onFileDrop = React.useCallback(async (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
@@ -27,7 +30,7 @@ function App() {
       
       const moodFile = contents.find(content => content.filename === "Mood.json");
       const mood = JSON.parse(await moodFile?.getData?.(moodWriter) ?? "{\"data\": []}")?.data as IRawMood[];
-      setValues(mood.map(m => ({
+      setMoods(mood.map(m => ({
         date: new Date(m.updated_time),
         value: m.value,
       })));
@@ -35,10 +38,11 @@ function App() {
       try {
         const goalFile = contents.find(content => content.filename === "Bullet.json");
         const goals = JSON.parse(await goalFile?.getData?.(goalWriter) ?? "{\"data\": []}")?.data as IRawBullet[];
-        setGoals(goals.map(m => ({
+        setGoals(goals.filter(g => g.bullet_type === 1).map(m => ({
           date: new Date(m.dt),
           name: m.text,
           isCompleted: m.completed_time != null,
+          value: m.completed_time != null ? "5" : "1"
         })));
       } catch(err) {
         console.error(err);
@@ -52,14 +56,21 @@ function App() {
     event.preventDefault();
     event.stopPropagation();
   }, []);
+  const items = React.useMemo(() => {
+    return goals.map(g => g.name).filter((a,b,c) => c.indexOf(a) === b);
+  }, [goals]);
+  const onGoalSelect = React.useCallback((item: string) => {
+    setSelectedGoal(item);
+  }, []);
   return (
     <div className="app" onDrop={onFileDrop} onDragOver={handleDragOver}
     >
       <header className="app-header">
         Zebra
+        <CalendarTypeSelect items={items} selectedItem={selectedGoal} onSelect={onGoalSelect} />
       </header>
       <div>
-        <CalendarHeatmap values={values} goals={goals} />
+        <CalendarHeatmap values={selectedGoal != null ? (goals.filter(g => g.name === selectedGoal)) : moods} />
       </div>
     </div>
   );

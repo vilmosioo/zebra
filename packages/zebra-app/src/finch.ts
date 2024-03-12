@@ -5,6 +5,7 @@ export interface IMood {
 
 export interface IGoal {
   isCompleted: boolean;
+  value: string;
   date: Date;
   name: string;
 }
@@ -24,6 +25,7 @@ export interface IRawMood {
 
 export interface IRawBullet {
   text: string;
+  bullet_type: number;
   dt: string;
   completed_time: string;       
 }
