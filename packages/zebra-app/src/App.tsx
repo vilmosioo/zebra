@@ -41,8 +41,9 @@ function App() {
         setGoals(goals.filter(g => g.bullet_type === 1).map(m => ({
           date: new Date(m.dt),
           name: m.text,
-          isCompleted: m.completed_time != null,
-          value: m.completed_time != null ? "5" : "1"
+          isCompleted: m.completed_time != "",
+          // should be 5 but it's not a nice color
+          value: m.completed_time != "" ? "4" : "1"
         })));
       } catch(err) {
         console.error(err);
