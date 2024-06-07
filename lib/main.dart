@@ -1,6 +1,8 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'globals.dart' as globals;
 
 void main() {
@@ -44,7 +46,24 @@ class MyHomePage extends StatelessWidget {
         child: Text('Please upload your Finch data.'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: () async {
+          FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["json"], );
+
+          if (result != null) {
+            PlatformFile file = result.files.first;
+
+            Fluttertoast.showToast(
+              msg: file.name,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: globals.mainColor,
+              fontSize: 16.0
+            );
+          } else {
+            // User canceled the picker
+          }
+        },
         tooltip: 'Upload',
         child: Icon(Icons.add),
       ),
