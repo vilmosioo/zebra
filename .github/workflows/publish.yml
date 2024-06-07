@@ -41,7 +41,7 @@ jobs:
       - run: flutter config --no-analytics # we do not want analytics
       - run: flutter config --no-cli-animations # no need for animations in CI
       - name: Build web
-        run: flutter build web
+        run: flutter build web --base-href "zebra"
       - name: No diff
         run: git diff --exit-code
       - name: Upload build artifact
