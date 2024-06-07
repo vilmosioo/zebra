@@ -60,10 +60,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: zebra-${{ github.sha }}
-      - run: pwd
-      - run: ls
-      - run: ls build
-      - run: ls build/web
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
