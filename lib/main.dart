@@ -1,6 +1,7 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'globals.dart' as globals;
 
 void main() {
   runApp(MyApp());
@@ -14,10 +15,10 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'Namer App',
+        title: 'Zebra',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+          colorScheme: ColorScheme.fromSeed(seedColor: globals.mainColor),
         ),
         home: MyHomePage(),
       ),
@@ -35,11 +36,17 @@ class MyHomePage extends StatelessWidget {
     var appState = context.watch<MyAppState>();
 
     return Scaffold(
-      body: Column(
-        children: [
-          Text('Hi Isaac!'),
-          Text(appState.current.asLowerCase),
-        ],
+      appBar: AppBar(
+        title: Text('Zebra'),
+        backgroundColor: globals.mainColor,
+      ),
+      body: Center(
+        child: Text('Please upload your Finch data.'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {},
+        tooltip: 'Upload',
+        child: Icon(Icons.add),
       ),
     );
   }
