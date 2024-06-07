@@ -44,10 +44,6 @@ jobs:
         run: flutter build web
       - name: No diff
         run: git diff --exit-code
-      - run: pwd
-      - run: ls
-      - run: ls build
-      - run: ls build/web
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
@@ -64,10 +60,14 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: zebra-${{ github.sha }}
+      - run: pwd
+      - run: ls
+      - run: ls build
+      - run: ls build/web
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build/web
+          path: .
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
