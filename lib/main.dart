@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'globals.dart' as globals;
 
 void main() {
@@ -43,11 +44,34 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: globals.mainColor,
       ),
       body: Center(
-        child: Text('Please upload your Finch data.'),
+        child: HeatMapCalendar(
+          defaultColor: Colors.white,
+          flexible: true,
+          colorMode: ColorMode.color,
+          datasets: {
+            DateTime(2024, 6, 6): 3,
+            DateTime(2024, 6, 7): 7,
+            DateTime(2024, 6, 8): 10,
+            DateTime(2024, 6, 9): 13,
+            DateTime(2024, 6, 13): 6,
+          },
+          colorsets: const {
+            1: Colors.red,
+            3: Colors.orange,
+            5: Colors.yellow,
+            7: Colors.green,
+            9: Colors.blue,
+            11: Colors.indigo,
+            13: Colors.purple,
+          },
+          onClick: (value) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["json"], );
+          FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["zip"], );
 
           if (result != null) {
             PlatformFile file = result.files.first;
