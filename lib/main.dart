@@ -49,23 +49,20 @@ class MyHomePage extends StatelessWidget {
           flexible: true,
           colorMode: ColorMode.color,
           datasets: {
-            DateTime(2024, 6, 6): 3,
-            DateTime(2024, 6, 7): 7,
-            DateTime(2024, 6, 8): 10,
-            DateTime(2024, 6, 9): 13,
-            DateTime(2024, 6, 13): 6,
+            DateTime(2024, 6, 6): 1,
+            DateTime(2024, 6, 7): 1,
+            DateTime(2024, 6, 8): 1,
+            DateTime(2024, 6, 9): 1,
+            DateTime(2024, 6, 13): 1,
           },
+          size: 12,
+          borderRadius: 50,
+          margin: EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 10
+          ),
           colorsets: const {
-            1: Colors.red,
-            3: Colors.orange,
-            5: Colors.yellow,
-            7: Colors.green,
-            9: Colors.blue,
-            11: Colors.indigo,
-            13: Colors.purple,
-          },
-          onClick: (value) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
+            1: globals.mainColor,
           },
         ),
       ),
