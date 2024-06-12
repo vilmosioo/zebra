@@ -7,7 +7,7 @@ import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'globals.dart' as globals;
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: globals.mainColor),
         ),
-        home: MyHomePage(),
+        home: const MyHomePage(),
       ),
     );
   }
@@ -34,13 +34,13 @@ class MyAppState extends ChangeNotifier {
 }
 
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-
     return Scaffold(
       appBar: AppBar(
-        title: Text('Zebra'),
+        title: const Text('Zebra'),
         backgroundColor: globals.mainColor,
       ),
       body: Center(
@@ -57,7 +57,7 @@ class MyHomePage extends StatelessWidget {
           },
           size: 12,
           borderRadius: 50,
-          margin: EdgeInsets.symmetric(
+          margin: const EdgeInsets.symmetric(
             vertical: 10,
             horizontal: 10
           ),
@@ -86,7 +86,7 @@ class MyHomePage extends StatelessWidget {
           }
         },
         tooltip: 'Upload',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
