@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+import 'select.dart';
 import 'globals.dart' as globals;
 
 void main() {
@@ -45,26 +46,7 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          DropdownButton<String>(
-            items: ["vioo", "vioo1", "vioo2"].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-            value: "vioo",
-            icon: const Icon(Icons.arrow_downward),
-            onChanged: (dynamic) {
-              Fluttertoast.showToast(
-                msg: dynamic.toString(),
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 1,
-                backgroundColor: globals.mainColor,
-                fontSize: 16.0
-              );
-            }
-          ),
+          const Select(),
           HeatMapCalendar(
             defaultColor: Colors.white,
             flexible: true,
