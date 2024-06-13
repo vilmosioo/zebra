@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const List<String> list = <String>['vioo1', 'vioo2', 'vioo3', 'vioo4', "vioo5", "vioo6"];
+const List<String> list = <String>['goal1', 'goal2', 'goal3', 'goal4', "goal5", "goal6"];
 
 class GoalSelector extends StatefulWidget {
   const GoalSelector({super.key});
@@ -21,8 +21,8 @@ class _GoalSelectorState extends State<GoalSelector> {
           label: value,
         );
       }).toList(),
-      enableFilter: list.length > 5,
-      enableSearch: list.length > 5,
+      // enableFilter: list.length > 5,
+      // enableSearch: list.length > 5,
       initialSelection: dropdownValue,
       onSelected: (String? value) {
         setState(() {
