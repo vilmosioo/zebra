@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:english_words/english_words.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -77,22 +80,30 @@ class MyHomePage extends StatelessWidget {
           FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["zip"], );
 
           if (result != null) {
-            PlatformFile file = result.files.first;
-            final destinationDir = Directory("destination_dir_path");
-            try {
-              ZipFile.extractToDirectory(zipFile: zipFile, destinationDir: destinationDir);
-            } catch (e) {
-              print(e);
-            }
+            File file = File(result.files.single.path!);
 
-            Fluttertoast.showToast(
-              msg: file.name,
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              backgroundColor: globals.mainColor,
-              fontSize: 16.0
-            );
+            final destinationDir = await Directory.systemTemp.createTemp();
+            try {
+              await ZipFile.extractToDirectory(zipFile: file, destinationDir: destinationDir);
+              
+              Fluttertoast.showToast(
+                msg: destinationDir.listSync().length.toString(),
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: globals.mainColor,
+                fontSize: 16.0
+              );
+            } catch (e) {
+              Fluttertoast.showToast(
+                msg: "Failed to extract zip file",
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: globals.mainColor,
+                fontSize: 16.0
+              );
+            }
           } else {
             // User canceled the picker
           }
