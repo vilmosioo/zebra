@@ -43,28 +43,50 @@ class MyHomePage extends StatelessWidget {
         title: const Text('Zebra'),
         backgroundColor: globals.mainColor,
       ),
-      body: Center(
-        child: HeatMapCalendar(
-          defaultColor: Colors.white,
-          flexible: true,
-          colorMode: ColorMode.color,
-          datasets: {
-            DateTime(2024, 6, 6): 1,
-            DateTime(2024, 6, 7): 1,
-            DateTime(2024, 6, 8): 1,
-            DateTime(2024, 6, 9): 1,
-            DateTime(2024, 6, 13): 1,
-          },
-          size: 12,
-          borderRadius: 50,
-          margin: const EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 10
+      body: Column(
+        children: [
+          DropdownButton<String>(
+            items: ["vioo", "vioo1", "vioo2"].map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            value: "vioo",
+            icon: const Icon(Icons.arrow_downward),
+            onChanged: (dynamic) {
+              Fluttertoast.showToast(
+                msg: dynamic.toString(),
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: globals.mainColor,
+                fontSize: 16.0
+              );
+            }
           ),
-          colorsets: const {
-            1: globals.mainColor,
-          },
-        ),
+          HeatMapCalendar(
+            defaultColor: Colors.white,
+            flexible: true,
+            colorMode: ColorMode.color,
+            datasets: {
+              DateTime(2024, 6, 6): 1,
+              DateTime(2024, 6, 7): 1,
+              DateTime(2024, 6, 8): 1,
+              DateTime(2024, 6, 9): 1,
+              DateTime(2024, 6, 13): 1,
+            },
+            size: 12,
+            borderRadius: 50,
+            margin: const EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: 10
+            ),
+            colorsets: const {
+              1: globals.mainColor,
+            },
+          ),
+        ]
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
