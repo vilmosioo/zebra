@@ -1,11 +1,13 @@
 import 'package:english_words/english_words.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_archive/flutter_archive.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
-import 'select.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+
 import 'globals.dart' as globals;
+import 'select.dart';
 
 void main() {
   runApp(const MyApp());
@@ -76,6 +78,12 @@ class MyHomePage extends StatelessWidget {
 
           if (result != null) {
             PlatformFile file = result.files.first;
+            final destinationDir = Directory("destination_dir_path");
+            try {
+              ZipFile.extractToDirectory(zipFile: zipFile, destinationDir: destinationDir);
+            } catch (e) {
+              print(e);
+            }
 
             Fluttertoast.showToast(
               msg: file.name,

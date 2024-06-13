@@ -23,6 +23,7 @@ linter:
   # producing the lint.
   rules:
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
+    directives_ordering: true
 
 analyzer:
   errors:
