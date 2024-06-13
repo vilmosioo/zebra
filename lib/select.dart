@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'globals.dart' as globals;
 
-class Select extends StatelessWidget {
-  const Select({super.key});
+const List<String> list = <String>['vioo1', 'vioo2', 'vioo3', 'vioo4', "vioo5", "vioo6"];
+
+class GoalSelector extends StatefulWidget {
+  const GoalSelector({super.key});
 
   @override
+  State<StatefulWidget> createState() => _GoalSelectorState();
+}
+
+class _GoalSelectorState extends State<GoalSelector> {
+  String dropdownValue = list.first;
+  
+  @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      items: ["vioo", "vioo1", "vioo2"].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
+    return DropdownMenu<String>(
+      dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
+        return DropdownMenuEntry<String>(
           value: value,
-          child: Text(value),
+          label: value,
         );
       }).toList(),
-      value: "vioo",
-      icon: const Icon(Icons.arrow_downward),
-      onChanged: (dynamic) {
-        Fluttertoast.showToast(
-          msg: dynamic.toString(),
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: globals.mainColor,
-          fontSize: 16.0
-        );
+      enableFilter: list.length > 5,
+      enableSearch: list.length > 5,
+      initialSelection: dropdownValue,
+      onSelected: (String? value) {
+        setState(() {
+          dropdownValue = value!;
+        });
       }
     );
   }

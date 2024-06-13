@@ -46,7 +46,7 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const Select(),
+          const GoalSelector(),
           HeatMapCalendar(
             defaultColor: Colors.white,
             flexible: true,
