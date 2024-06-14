@@ -1,9 +1,11 @@
-import 'dart:io';
+import 'dart:convert';
+import 'dart:js_interop';
 
+import 'package:archive/archive.dart';
 import 'package:english_words/english_words.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_archive/flutter_archive.dart';
+// import 'package:flutter_archive/flutter_archive.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -76,32 +78,55 @@ class MyHomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["zip"], );
+          FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["zip"], withData: true );
 
-          if (result != null) {
-            File file = File(result.files.single.path!);
-
-            final destinationDir = await Directory.systemTemp.createTemp();
-            try {
-              await ZipFile.extractToDirectory(zipFile: file, destinationDir: destinationDir);
-              
-              Fluttertoast.showToast(
-                msg: destinationDir.listSync().length.toString(),
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 1,
-                backgroundColor: globals.mainColor,
-                fontSize: 16.0
-              );
-            } catch (e) {
-              Fluttertoast.showToast(
-                msg: "Failed to extract zip file",
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 1,
-                backgroundColor: globals.mainColor,
-                fontSize: 16.0
-              );
+          if (result != null && result.files.isNotEmpty) {
+            final bytes = result.files.first.bytes?.toList();
+            if (bytes != null) {
+              try {
+                final archive = ZipDecoder().decodeBytes(bytes);
+                
+                for (final file in archive) {
+                  if (file.isFile && file.name == "Bullet.json") {
+                    final goalBytes = file.content as List<int>;
+                    print("vioo 1");
+                    final goalRaw = utf8.decode(goalBytes);
+                    print("vioo 2");
+                    final goals = (jsonDecode(goalRaw) as Map<String, dynamic>)['data'] as JSArray;
+                    print("vioo 3" + goals.toString());
+                    // const goals = JSON.parse(await goalFile?.getData?.(goalWriter) ?? "{\"data\": []}")?.data as IRawBullet[];
+                    // try {
+                    //   const goalFile = contents.find(content => content.filename === "Bullet.json");
+                    //   const goals = JSON.parse(await goalFile?.getData?.(goalWriter) ?? "{\"data\": []}")?.data as IRawBullet[];
+                    //   setGoals(goals.filter(g => g.bullet_type === 1).map(m => ({
+                    //     date: new Date(m.dt),
+                    //     name: m.text,
+                    //     isCompleted: m.completed_time != "",
+                    //     // should be 5 but it's not a nice color
+                    //     value: m.completed_time != "" ? "4" : "1"
+                    //   })));
+                    // } catch(err) {
+                    //   console.error(err);
+                    // }
+                    Fluttertoast.showToast(
+                      msg: goals.toString(),
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      backgroundColor: globals.mainColor,
+                      fontSize: 16.0,
+                    );
+                  }
+                }
+              } catch (e) {
+                Fluttertoast.showToast(
+                  msg: "Failed to extract zip file$e",
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: globals.mainColor,
+                  fontSize: 16.0
+                );
+              }
             }
           } else {
             // User canceled the picker
