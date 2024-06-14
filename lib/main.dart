@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:english_words/english_words.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_archive/flutter_archive.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+
 import 'globals.dart' as globals;
+import 'select.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,44 +48,61 @@ class MyHomePage extends StatelessWidget {
         title: const Text('Zebra'),
         backgroundColor: globals.mainColor,
       ),
-      body: Center(
-        child: HeatMapCalendar(
-          defaultColor: Colors.white,
-          flexible: true,
-          colorMode: ColorMode.color,
-          datasets: {
-            DateTime(2024, 6, 6): 1,
-            DateTime(2024, 6, 7): 1,
-            DateTime(2024, 6, 8): 1,
-            DateTime(2024, 6, 9): 1,
-            DateTime(2024, 6, 13): 1,
-          },
-          size: 12,
-          borderRadius: 50,
-          margin: const EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 10
+      body: Column(
+        children: [
+          const GoalSelector(),
+          HeatMapCalendar(
+            defaultColor: Colors.white,
+            flexible: true,
+            colorMode: ColorMode.color,
+            datasets: {
+              DateTime(2024, 6, 6): 1,
+              DateTime(2024, 6, 7): 1,
+              DateTime(2024, 6, 8): 1,
+              DateTime(2024, 6, 9): 1,
+              DateTime(2024, 6, 13): 1,
+            },
+            size: 12,
+            borderRadius: 50,
+            margin: const EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: 10
+            ),
+            colorsets: const {
+              1: globals.mainColor,
+            },
           ),
-          colorsets: const {
-            1: globals.mainColor,
-          },
-        ),
+        ]
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["zip"], );
 
           if (result != null) {
-            PlatformFile file = result.files.first;
+            File file = File(result.files.single.path!);
 
-            Fluttertoast.showToast(
-              msg: file.name,
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              backgroundColor: globals.mainColor,
-              fontSize: 16.0
-            );
+            final destinationDir = await Directory.systemTemp.createTemp();
+            try {
+              await ZipFile.extractToDirectory(zipFile: file, destinationDir: destinationDir);
+              
+              Fluttertoast.showToast(
+                msg: destinationDir.listSync().length.toString(),
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: globals.mainColor,
+                fontSize: 16.0
+              );
+            } catch (e) {
+              Fluttertoast.showToast(
+                msg: "Failed to extract zip file",
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: globals.mainColor,
+                fontSize: 16.0
+              );
+            }
           } else {
             // User canceled the picker
           }
