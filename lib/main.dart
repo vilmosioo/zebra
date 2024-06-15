@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:js_interop';
 
 import 'package:archive/archive.dart';
 import 'package:english_words/english_words.dart';
@@ -10,7 +9,6 @@ import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
-import 'globals.dart' as globals;
 import 'select.dart';
 
 void main() {
@@ -27,8 +25,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Zebra',
         theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: globals.mainColor),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(100, 65, 180, 255)),
+          brightness: Brightness.dark
         ),
         home: const MyHomePage(),
       ),
@@ -45,10 +43,11 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColour = Theme.of(context).colorScheme.primary;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Zebra'),
-        backgroundColor: globals.mainColor,
+        backgroundColor: primaryColour,
       ),
       body: Column(
         children: [
@@ -70,8 +69,8 @@ class MyHomePage extends StatelessWidget {
               vertical: 10,
               horizontal: 10
             ),
-            colorsets: const {
-              1: globals.mainColor,
+            colorsets: {
+              1: primaryColour,
             },
           ),
         ]
@@ -89,11 +88,8 @@ class MyHomePage extends StatelessWidget {
                 for (final file in archive) {
                   if (file.isFile && file.name == "Bullet.json") {
                     final goalBytes = file.content as List<int>;
-                    print("vioo 1");
                     final goalRaw = utf8.decode(goalBytes);
-                    print("vioo 2");
-                    final goals = (jsonDecode(goalRaw) as Map<String, dynamic>)['data'] as JSArray;
-                    print("vioo 3" + goals.toString());
+                    final goals = (jsonDecode(goalRaw) as Map<String, dynamic>)['data'];
                     // const goals = JSON.parse(await goalFile?.getData?.(goalWriter) ?? "{\"data\": []}")?.data as IRawBullet[];
                     // try {
                     //   const goalFile = contents.find(content => content.filename === "Bullet.json");
@@ -112,7 +108,7 @@ class MyHomePage extends StatelessWidget {
                       msg: goals.toString(),
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
-                      backgroundColor: globals.mainColor,
+                      backgroundColor: primaryColour,
                       fontSize: 16.0,
                     );
                   }
@@ -123,7 +119,7 @@ class MyHomePage extends StatelessWidget {
                   toastLength: Toast.LENGTH_LONG,
                   gravity: ToastGravity.CENTER,
                   timeInSecForIosWeb: 1,
-                  backgroundColor: globals.mainColor,
+                  backgroundColor: primaryColour,
                   fontSize: 16.0
                 );
               }
