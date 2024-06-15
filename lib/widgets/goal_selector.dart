@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const List<String> list = <String>['goal1', 'goal2', 'goal3', 'goal4', "goal5", "goal6"];
 
+/// Widget to display a selector for a list of goals.
 class GoalSelector extends StatefulWidget {
   const GoalSelector({super.key});
 
