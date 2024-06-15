@@ -25,8 +25,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Zebra',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(100, 65, 180, 255)),
-          brightness: Brightness.dark
+          colorScheme: ColorScheme.fromSeed(seedColor:  const Color.fromARGB(100, 65, 180, 255)),
         ),
         home: const MyHomePage(),
       ),
@@ -43,11 +42,9 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColour = Theme.of(context).colorScheme.primary;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Zebra'),
-        backgroundColor: primaryColour,
       ),
       body: Column(
         children: [
@@ -64,13 +61,13 @@ class MyHomePage extends StatelessWidget {
               DateTime(2024, 6, 13): 1,
             },
             size: 12,
-            borderRadius: 50,
+            borderRadius: 500,
             margin: const EdgeInsets.symmetric(
               vertical: 10,
               horizontal: 10
             ),
-            colorsets: {
-              1: primaryColour,
+            colorsets: const {
+              1: Color.fromARGB(100, 65, 180, 255),
             },
           ),
         ]
@@ -108,7 +105,6 @@ class MyHomePage extends StatelessWidget {
                       msg: goals.toString(),
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
-                      backgroundColor: primaryColour,
                       fontSize: 16.0,
                     );
                   }
@@ -119,7 +115,6 @@ class MyHomePage extends StatelessWidget {
                   toastLength: Toast.LENGTH_LONG,
                   gravity: ToastGravity.CENTER,
                   timeInSecForIosWeb: 1,
-                  backgroundColor: primaryColour,
                   fontSize: 16.0
                 );
               }
