@@ -89,12 +89,13 @@ class MyHomePage extends StatelessWidget {
                     final goalBytes = file.content as List<int>;
                     final goalRaw = utf8.decode(goalBytes);
                     final goalsRaw = (jsonDecode(goalRaw) as Map<String, dynamic>)['data'];
-                    final goals = [];
+                    final goals = <String, Goal>{};
                     for (var goal in goalsRaw) {
-                      goals.add(Goal.fromJson(goal));
+                      final g = Goal.fromJson(goal);
+                      goals[g.name] = g;
                     }
                     Fluttertoast.showToast(
-                      msg: goals.length.toString(),
+                      msg: goals.keys.toString(),
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       fontSize: 16.0,
