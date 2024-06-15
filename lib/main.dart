@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Zebra',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor:  const Color.fromARGB(100, 65, 180, 255)),
+          primaryColor: const Color.fromARGB(100, 65, 180, 255),
         ),
         home: const MyHomePage(),
       ),
@@ -47,11 +47,11 @@ class MyHomePage extends StatelessWidget {
         title: const Text('Zebra'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const GoalSelector(),
           HeatMapCalendar(
             defaultColor: Colors.white,
-            flexible: true,
             colorMode: ColorMode.color,
             datasets: {
               DateTime(2024, 6, 6): 1,
@@ -60,8 +60,9 @@ class MyHomePage extends StatelessWidget {
               DateTime(2024, 6, 9): 1,
               DateTime(2024, 6, 13): 1,
             },
-            size: 12,
-            borderRadius: 500,
+            size: 50,
+            borderRadius: 100,
+            showColorTip: false,
             margin: const EdgeInsets.symmetric(
               vertical: 10,
               horizontal: 10
