@@ -4,7 +4,10 @@ import 'package:archive/archive.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:zebra/model/goal.dart';
+
+import '../model/goals.dart';
 
 
 /// Widget that display an upload button that accepts Finch backup zip file.
@@ -14,6 +17,7 @@ class UploadButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var goalsModel = context.watch<GoalsModel>();
     return FloatingActionButton(
         onPressed: () async {
           FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["zip"], withData: true );
@@ -32,10 +36,16 @@ class UploadButton extends StatelessWidget {
                     final goals = <String, Goal>{};
                     for (var goal in goalsRaw) {
                       final g = Goal.fromJson(goal);
-                      goals[g.name] = g;
+                      if (g.bulletType == 1) {
+                        print(g.toString());
+                        goals[g.name] = g;
+                      }
+                    }
+                    for (var key in goals.keys) {
+                      goalsModel.add(goals[key]!);
                     }
                     Fluttertoast.showToast(
-                      msg: goals.keys.toString(),
+                      msg: "Imported",
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       fontSize: 16.0,
