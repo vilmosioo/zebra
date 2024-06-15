@@ -21,21 +21,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
-      child: MaterialApp(
-        title: 'Zebra',
-        theme: ThemeData(
-          primaryColor: const Color.fromARGB(100, 65, 180, 255),
-        ),
-        home: const MyHomePage(),
+    return MaterialApp(
+      title: 'Zebra',
+      theme: ThemeData(
+        primaryColor: const Color.fromARGB(100, 65, 180, 255),
       ),
+      home: const MyHomePage(),
     );
   }
-}
-
-class MyAppState extends ChangeNotifier {
-  var current = WordPair.random();
 }
 
 class MyHomePage extends StatelessWidget {
