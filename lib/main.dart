@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:zebra/model/goal.dart';
 
 import 'select.dart';
 
@@ -87,23 +88,14 @@ class MyHomePage extends StatelessWidget {
                   if (file.isFile && file.name == "Bullet.json") {
                     final goalBytes = file.content as List<int>;
                     final goalRaw = utf8.decode(goalBytes);
-                    final goals = (jsonDecode(goalRaw) as Map<String, dynamic>)['data'];
-                    // const goals = JSON.parse(await goalFile?.getData?.(goalWriter) ?? "{\"data\": []}")?.data as IRawBullet[];
-                    // try {
-                    //   const goalFile = contents.find(content => content.filename === "Bullet.json");
-                    //   const goals = JSON.parse(await goalFile?.getData?.(goalWriter) ?? "{\"data\": []}")?.data as IRawBullet[];
-                    //   setGoals(goals.filter(g => g.bullet_type === 1).map(m => ({
-                    //     date: new Date(m.dt),
-                    //     name: m.text,
-                    //     isCompleted: m.completed_time != "",
-                    //     // should be 5 but it's not a nice color
-                    //     value: m.completed_time != "" ? "4" : "1"
-                    //   })));
-                    // } catch(err) {
-                    //   console.error(err);
-                    // }
+                    final goalsRaw = (jsonDecode(goalRaw) as Map<String, dynamic>)['data'];
+                    final goals = <String, Goal>{};
+                    for (var goal in goalsRaw) {
+                      final g = Goal.fromJson(goal);
+                      goals[g.name] = g;
+                    }
                     Fluttertoast.showToast(
-                      msg: goals.toString(),
+                      msg: goals.keys.toString(),
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       fontSize: 16.0,
