@@ -37,7 +37,6 @@ class UploadButton extends StatelessWidget {
                     for (var goal in goalsRaw) {
                       final g = Goal.fromJson(goal);
                       if (g.bulletType == 1) {
-                        print(g.toString());
                         goals[g.name] = g;
                       }
                     }
