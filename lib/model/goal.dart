@@ -9,7 +9,7 @@ part 'goal.g.dart';
 /// JSON serialization logic to be generated.
 @JsonSerializable()
 class Goal {
-  Goal(this.name, this.date, this.completedTime, this.bulletType);
+  Goal(this.name, this.date, this.completedTime, this.scheduleTime);
 
   @JsonKey(required: true, name: 'text')
   String name;
@@ -20,8 +20,8 @@ class Goal {
   @JsonKey(required: true, name: 'completed_time')
   String completedTime;
 
-  @JsonKey(required: true, name: 'bullet_type')
-  int bulletType;
+  @JsonKey(required: true, name: 'schedule_time')
+  String scheduleTime;
 
   /// A necessary factory constructor for creating a new Goal instance
   /// from a map. Pass the map to the generated `_$GoalFromJson()` constructor.

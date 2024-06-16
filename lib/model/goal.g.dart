@@ -9,13 +9,13 @@ part of 'goal.dart';
 Goal _$GoalFromJson(Map<String, dynamic> json) {
   $checkKeys(
     json,
-    requiredKeys: const ['text', 'dt', 'completed_time', 'bullet_type'],
+    requiredKeys: const ['text', 'dt', 'completed_time', 'schedule_time'],
   );
   return Goal(
     json['text'] as String,
     json['dt'] as String,
     json['completed_time'] as String,
-    (json['bullet_type'] as num).toInt(),
+    json['schedule_time'] as String,
   );
 }
 
@@ -23,5 +23,5 @@ Map<String, dynamic> _$GoalToJson(Goal instance) => <String, dynamic>{
       'text': instance.name,
       'dt': instance.date,
       'completed_time': instance.completedTime,
-      'bullet_type': instance.bulletType,
+      'schedule_time': instance.scheduleTime,
     };

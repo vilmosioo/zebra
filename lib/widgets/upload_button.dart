@@ -1,12 +1,10 @@
-import 'dart:convert';
 
-import 'package:archive/archive.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:zebra/model/goal.dart';
 
+import '../common/util.dart';
 import '../model/goals.dart';
 
 
@@ -20,49 +18,27 @@ class UploadButton extends StatelessWidget {
     var goalsModel = context.watch<GoalsModel>();
     return FloatingActionButton(
         onPressed: () async {
-          FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["zip"], withData: true );
-
-          if (result != null && result.files.isNotEmpty) {
-            final bytes = result.files.first.bytes?.toList();
-            if (bytes != null) {
-              try {
-                final archive = ZipDecoder().decodeBytes(bytes);
-                
-                for (final file in archive) {
-                  if (file.isFile && file.name == "Bullet.json") {
-                    final goalBytes = file.content as List<int>;
-                    final goalRaw = utf8.decode(goalBytes);
-                    final goalsRaw = (jsonDecode(goalRaw) as Map<String, dynamic>)['data'];
-                    final goals = <String, Goal>{};
-                    for (var goal in goalsRaw) {
-                      final g = Goal.fromJson(goal);
-                      if (g.bulletType == 1) {
-                        goals[g.name] = g;
-                      }
-                    }
-                    for (var key in goals.keys) {
-                      goalsModel.add(goals[key]!);
-                    }
-                    Fluttertoast.showToast(
-                      msg: "Imported",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      fontSize: 16.0,
-                    );
-                  }
-                }
-              } catch (e) {
-                Fluttertoast.showToast(
-                  msg: "Failed to extract zip file$e",
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 1,
-                  fontSize: 16.0
-                );
-              }
+          try {
+            FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["zip"], withData: true );
+            final goals = await getAndParseFinchExport(result);
+            
+            for (var key in goals.keys) {
+              goalsModel.add(goals[key]!);
             }
-          } else {
-            // User canceled the picker
+            Fluttertoast.showToast(
+              msg: "Imported",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              fontSize: 16.0,
+            );
+          } catch (e) {
+            Fluttertoast.showToast(
+              msg: "Failed to extract zip file$e",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              fontSize: 16.0
+            );
           }
         },
         tooltip: 'Upload',
