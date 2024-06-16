@@ -12,7 +12,7 @@ import 'package:zebra/main.dart';
 
 void main() {
   testWidgets('Basic scaffolding', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const ZebraApp());
 
     expect(find.text('Zebra'), findsOneWidget);
     expect(find.byIcon(Icons.add), findsOneWidget);
