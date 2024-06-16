@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'cadence.dart';
+
 /// This allows the `Goal` class to access private members in
 /// the generated file. The value for this is *.g.dart, where
 /// the star denotes the source file name.
@@ -7,9 +9,9 @@ part 'goal.g.dart';
 
 /// An annotation for the code generator to know that this class needs the
 /// JSON serialization logic to be generated.
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Goal {
-  Goal(this.name, this.date, this.completedTime, this.bulletType);
+  Goal(this.name, this.date, this.completedTime, this.scheduleTime, this.cadence);
 
   @JsonKey(required: true, name: 'text')
   String name;
@@ -20,8 +22,11 @@ class Goal {
   @JsonKey(required: true, name: 'completed_time')
   String completedTime;
 
-  @JsonKey(required: true, name: 'bullet_type')
-  int bulletType;
+  @JsonKey(required: true, name: 'schedule_time')
+  String scheduleTime;
+
+  @JsonKey(required: false, name: 'cadence')
+  Cadence? cadence;
 
   /// A necessary factory constructor for creating a new Goal instance
   /// from a map. Pass the map to the generated `_$GoalFromJson()` constructor.
