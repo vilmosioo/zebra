@@ -11,14 +11,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:zebra/main.dart';
 
 void main() {
-<<<<<<< HEAD
   testWidgets('Basic scaffolding', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
-=======
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
     await tester.pumpWidget(const ZebraApp());
->>>>>>> a3ada3c (Architecture)
 
     expect(find.text('Zebra'), findsOneWidget);
     expect(find.byIcon(Icons.add), findsOneWidget);
