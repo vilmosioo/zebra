@@ -25,6 +25,7 @@ class UploadButton extends StatelessWidget {
             for (var key in goals.keys) {
               goalsModel.add(goals[key]!);
             }
+            print(goals.keys);
             Fluttertoast.showToast(
               msg: "Imported",
               toastLength: Toast.LENGTH_SHORT,

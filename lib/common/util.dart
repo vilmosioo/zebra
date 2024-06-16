@@ -6,7 +6,7 @@ import 'package:zebra/model/goal.dart';
 
 /// Function that parses Finch zip export file and updates the goals model.
 Future<Map<String, Goal>> getAndParseFinchExport(FilePickerResult? result) async {
-  if (result == null || result.files.isNotEmpty) {
+  if (result == null || !result.files.isNotEmpty) {
     return {};
   }
   final bytes = result.files.first.bytes?.toList();
@@ -25,7 +25,7 @@ Future<Map<String, Goal>> getAndParseFinchExport(FilePickerResult? result) async
         for (var goal in goalsRaw) {
           final g = Goal.fromJson(goal);
           // Only save repeating goals
-          if (g.scheduleTime != "") {
+          if (g.cadence?.periodFrequency != null) {
             goals[g.name] = g;
           }
         }
@@ -35,7 +35,7 @@ Future<Map<String, Goal>> getAndParseFinchExport(FilePickerResult? result) async
     return {};
   } catch (e) {
     // ignore: avoid_print
-    print("Failed to extract zip file");
+    print("Failed to extract zip file$e");
     rethrow;
   }
 }
