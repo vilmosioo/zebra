@@ -23,10 +23,9 @@ class _GoalSelectorState extends State<GoalSelector> {
         }
         return DropdownMenu<String>(
           dropdownMenuEntries: model.goals.keys.map<DropdownMenuEntry<String>>((String key) {
-            final goal = model.goals[key]!;
             return DropdownMenuEntry<String>(
-              value: goal.name,
-              label: goal.name,
+              value: key,
+              label: key,
             );
           }).toList(),
           initialSelection: dropdownValue,
