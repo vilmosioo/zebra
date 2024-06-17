@@ -31,7 +31,9 @@ class UploadButton extends StatelessWidget {
               if (reports[key] == null) {
                 reports[key] = [];
               }
-              reports[key]?.add(Report(goal.date, goal.completedTime != ""));
+              for (var g in goal) {
+                reports[key]?.add(Report(g.date, g.completedTime != ""));
+              }
             }
             goalsModel.addAll(reports);
             Fluttertoast.showToast(
