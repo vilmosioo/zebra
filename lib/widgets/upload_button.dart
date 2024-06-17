@@ -21,10 +21,7 @@ class UploadButton extends StatelessWidget {
           try {
             FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["zip"], withData: true );
             final goals = await getAndParseFinchExport(result);
-            
-            for (var key in goals.keys) {
-              goalsModel.add(goals[key]!);
-            }
+            goalsModel.addAll(goals);
             Fluttertoast.showToast(
               msg: "Imported",
               toastLength: Toast.LENGTH_SHORT,
