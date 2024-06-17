@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../model/goals.dart';
 
 // Thu, 9 Nov 2023 01:00:00
-DateFormat format = DateFormat("E, d LLL y H:m:s");
+DateFormat format = DateFormat("E, d LLL y");
 
 /// Widget to display a calendar heatmap of a specific goal.
 class HeatMap extends StatelessWidget {
@@ -26,10 +26,12 @@ class HeatMap extends StatelessWidget {
         for (var report in selectedGoal) {
           datasets[format.parse(report.date)] = report.isCompleted ? 1 : 0;
         }
+        final max = datasets.keys.reduce((a,b) => a.isAfter(b) ? a : b);
         return HeatMapCalendar(
           defaultColor: Colors.white,
           colorMode: ColorMode.color,
           datasets: datasets,
+          initDate: max,
           size: 50,
           borderRadius: 100,
           showColorTip: false,
@@ -38,6 +40,7 @@ class HeatMap extends StatelessWidget {
             horizontal: 10
           ),
           colorsets: const {
+            0: Color.fromARGB(50, 255, 0, 0),
             1: Color.fromARGB(100, 65, 180, 255),
           },
         );
