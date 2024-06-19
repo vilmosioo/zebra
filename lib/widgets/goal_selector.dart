@@ -21,11 +21,18 @@ class _GoalSelectorState extends State<GoalSelector> {
           // Render empty box when list of goals is empty.
           return const SizedBox();
         }
+        final List<String> keys = List.from(model.goals.keys);
+        // Sort keys by number of reports.
+        keys.sort((a, b) {
+          final aGoal = model.goals[a]!;
+          final bGoal = model.goals[b]!;
+          return bGoal.length - aGoal.length;
+        });
         return DropdownMenu<String>(
-          dropdownMenuEntries: model.goals.keys.map<DropdownMenuEntry<String>>((String key) {
+          dropdownMenuEntries: keys.map<DropdownMenuEntry<String>>((String key) {
             return DropdownMenuEntry<String>(
               value: key,
-              label: key,
+              label: "${key.replaceAll("#", "")} (${model.goals[key]?.length})",
             );
           }).toList(),
           initialSelection: dropdownValue,
