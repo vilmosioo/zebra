@@ -19,7 +19,8 @@ class GoalsModel extends ChangeNotifier {
   /// Adds [goals] to list of goals. This clears any existing goals.
   void addAll(Map<String, List<Report>> goals) {
     _goals.clear();
-    _goals.addAll(goals);
+    // Ignore empty goals and goals with only one entry, as they are not scheduled.
+    _goals.addAll(goals..removeWhere((key, value) => value.isEmpty || value.length == 1));
     // This call tells the widgets that are listening to this model to rebuild.
     notifyListeners();
   }
