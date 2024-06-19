@@ -3,29 +3,31 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 
-import 'goal.dart';
+import 'report.dart';
 
 class GoalsModel extends ChangeNotifier {
   /// Internal, private state of the cart.
-  final List<Goal> _goals = [];
+  final Map<String, List<Report>> _goals = {};
+  String? _selectedGoalKey;
 
   /// An unmodifiable view of the goals in the cart.
-  UnmodifiableListView<Goal> get goals => UnmodifiableListView(_goals);
+  UnmodifiableMapView<String, List<Report>> get goals => UnmodifiableMapView(_goals);
 
-  /// The current total price of all goals (assuming all goals cost $42).
-  int get totalPrice => _goals.length * 42;
+  /// Selected goal to view.
+  String? get selectedGoal => _selectedGoalKey;
 
-  /// Adds [goal] to cart. This and [removeAll] are the only ways to modify the
-  /// cart from the outside.
-  void add(Goal goal) {
-    _goals.add(goal);
+  /// Adds [goals] to list of goals. This clears any existing goals.
+  void addAll(Map<String, List<Report>> goals) {
+    _goals.clear();
+    _goals.addAll(goals);
     // This call tells the widgets that are listening to this model to rebuild.
     notifyListeners();
   }
 
-  /// Removes all goals from the cart.
-  void removeAll() {
-    _goals.clear();
+  /// Adds [goal] to cart. This and [removeAll] are the only ways to modify the
+  /// cart from the outside.
+  void setSelectedGoal(String? goalKey) {
+    _selectedGoalKey = goalKey;
     // This call tells the widgets that are listening to this model to rebuild.
     notifyListeners();
   }

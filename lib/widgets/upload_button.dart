@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../common/util.dart';
 import '../model/goals.dart';
+import '../model/report.dart';
 
 
 /// Widget that display an upload button that accepts Finch backup zip file.
@@ -21,10 +22,20 @@ class UploadButton extends StatelessWidget {
           try {
             FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["zip"], withData: true );
             final goals = await getAndParseFinchExport(result);
-            
+            final reports = <String, List<Report>>{};
             for (var key in goals.keys) {
-              goalsModel.add(goals[key]!);
+              final goal = goals[key];
+              if (goal == null) {
+                continue;
+              }
+              if (reports[key] == null) {
+                reports[key] = [];
+              }
+              for (var g in goal) {
+                reports[key]?.add(Report(g.date, g.completedTime != ""));
+              }
             }
+            goalsModel.addAll(reports);
             Fluttertoast.showToast(
               msg: "Imported",
               toastLength: Toast.LENGTH_SHORT,
