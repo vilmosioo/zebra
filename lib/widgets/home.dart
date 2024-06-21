@@ -19,7 +19,7 @@ class ZebraHomePage extends StatelessWidget {
           title: const Text('Zebra'),
         ),
         body: const Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GoalSelector(),
             HeatMap(),
