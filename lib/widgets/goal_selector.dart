@@ -28,18 +28,28 @@ class _GoalSelectorState extends State<GoalSelector> {
           final bGoal = model.goals[b]!;
           return bGoal.length - aGoal.length;
         });
-        return DropdownMenu<String>(
-          dropdownMenuEntries: keys.map<DropdownMenuEntry<String>>((String key) {
-            return DropdownMenuEntry<String>(
-              value: key,
-              label: "${key.replaceAll("#", "")} (${model.goals[key]?.length})",
-            );
-          }).toList(),
-          initialSelection: dropdownValue,
-          onSelected: (String? value) {
-            model.setSelectedGoal(value);
-          }
-        );
+        return LayoutBuilder(builder: (context, constraints) {
+          return DropdownMenu<String>(
+            width: constraints.maxWidth - 20, // <-- This is necessary to force the menu items to the dropdown width.
+            expandedInsets: const EdgeInsets.all(10), // <-- This is necessary to make the dropdown menu full with with some margin.
+            dropdownMenuEntries: keys.map<DropdownMenuEntry<String>>((String key) {
+              final String labelText = "${key.replaceAll("#", "")} (${model.goals[key]?.length})";
+              return DropdownMenuEntry<String>(
+                value: key,
+                label: labelText,
+                labelWidget: Text(
+                    labelText,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+              );
+            }).toList(),
+            initialSelection: dropdownValue,
+            onSelected: (String? value) {
+              model.setSelectedGoal(value);
+            }
+          );
+        });
       }
     );
   }
