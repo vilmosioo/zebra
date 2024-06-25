@@ -16,7 +16,7 @@ class UploadButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final box = Hive.box<List<Report>>(zebraBox);
+    final box = Hive.box(zebraBox);
     return FloatingActionButton(
       onPressed: () async {
         try {

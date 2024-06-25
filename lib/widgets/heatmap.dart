@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 import '../common/constants.dart';
 import '../model/goals.dart';
-import '../model/report.dart';
 
 // Thu, 9 Nov 2023 01:00:00
 DateFormat format = DateFormat("E, d LLL y");
@@ -21,7 +20,7 @@ class HeatMap extends StatelessWidget {
     return Consumer<GoalsModel>(
       builder: (context, model, child) {
         return ValueListenableBuilder(
-          valueListenable: Hive.box<List<Report>>(zebraBox).listenable(),
+          valueListenable: Hive.box(zebraBox).listenable(),
           builder: (context, box, widget) {
             // Render empty box when list of goals is empty.
             if (box.isEmpty) {
