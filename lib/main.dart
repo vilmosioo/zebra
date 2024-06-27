@@ -1,9 +1,15 @@
 
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+import 'common/constants.dart';
+import 'model/report.dart';
 import 'widgets/home.dart';
 
-void main() {
+void main() async {
+  Hive.registerAdapter(ReportAdapter()); 
+  await Hive.initFlutter();
+  await Hive.openBox(zebraBox);
   runApp(const ZebraApp());
 }
 
