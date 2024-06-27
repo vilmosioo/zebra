@@ -18,41 +18,57 @@ class UploadButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final box = Hive.box(zebraBox);
     return FloatingActionButton(
-      onPressed: () async {
-        try {
-          FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["zip"], withData: true );
-          final goals = await getAndParseFinchExport(result);
-          final reports = <String, List<Report>>{};
-          for (var key in goals.keys) {
-            final goal = goals[key];
-            if (goal == null) {
-              continue;
-            }
-            if (reports[key] == null) {
-              reports[key] = [];
-            }
-            for (var g in goal) {
-              reports[key]?.add(Report(g.date, g.completedTime != ""));
-            }
-          }
-          await box.clear();
-          await box.putAll(reports);
-          Fluttertoast.showToast(
-            msg: "Imported",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            fontSize: 16.0,
-          );
-        } catch (e) {
-          Fluttertoast.showToast(
-            msg: "Failed to extract zip file$e",
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 10,
-            fontSize: 16.0
-          );
-        }
-      },
+      onPressed: () => showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Warning'),
+          content: const Text('Uploading a new export zip file will erase any existing data. Are you sure you want to continue importing a new file?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () async {
+                try {
+                  FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["zip"], withData: true );
+                  final goals = await getAndParseFinchExport(result);
+                  final reports = <String, List<Report>>{};
+                  for (var key in goals.keys) {
+                    final goal = goals[key];
+                    if (goal == null) {
+                      continue;
+                    }
+                    if (reports[key] == null) {
+                      reports[key] = [];
+                    }
+                    for (var g in goal) {
+                      reports[key]?.add(Report(g.date, g.completedTime != ""));
+                    }
+                  }
+                  await box.clear();
+                  await box.putAll(reports);
+                  Fluttertoast.showToast(
+                    msg: "Imported",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    fontSize: 16.0,
+                  );
+                } catch (e) {
+                  Fluttertoast.showToast(
+                    msg: "Failed to extract zip file$e",
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 10,
+                    fontSize: 16.0
+                  );
+                }
+              },
+              child: const Text('Import'),
+            ),
+          ],
+        ),
+      ),
       tooltip: 'Upload',
       child: const Icon(Icons.add),
     );
