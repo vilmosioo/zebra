@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_select/flutter_native_select.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:zebra/model/goals.dart';
@@ -6,15 +7,8 @@ import 'package:zebra/model/goals.dart';
 import '../common/constants.dart';
 
 /// Widget to display a selector for a list of goals.
-class GoalSelector extends StatefulWidget {
+class GoalSelector extends StatelessWidget {
   const GoalSelector({super.key});
-
-  @override
-  State<StatefulWidget> createState() => _GoalSelectorState();
-}
-
-class _GoalSelectorState extends State<GoalSelector> {
-  String? dropdownValue;
   
   @override
   Widget build(BuildContext context) {
@@ -25,7 +19,7 @@ class _GoalSelectorState extends State<GoalSelector> {
           builder: (context, box, widget) {
             // todo remove cast
             final goals = box.toMap();
-            return _GoalSelectorInternal(goals, dropdownValue, model.setSelectedGoal);
+            return _GoalSelectorInternal(goals, model.selectedGoal, model.setSelectedGoal);
           }
         );
       }
@@ -52,26 +46,25 @@ class _GoalSelectorInternal extends StatelessWidget {
         final bGoal = goals[b]!;
         return bGoal.length - aGoal.length;
       });
-      return LayoutBuilder(builder: (context, constraints) {
-        return DropdownMenu<String>(
-          width: constraints.maxWidth - 20, // <-- This is necessary to force the menu items to the dropdown width.
-          expandedInsets: const EdgeInsets.all(10), // <-- This is necessary to make the dropdown menu full with with some margin.
-          dropdownMenuEntries: keys.map<DropdownMenuEntry<String>>((String key) {
-            final String labelText = "${key.replaceAll("#", "")} (${goals[key]?.length})";
-            return DropdownMenuEntry<String>(
-              value: key,
-              label: labelText,
-              labelWidget: Text(
-                  labelText,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-            );
-          }).toList(),
-          initialSelection: selectedGoal,
-          onSelected: onSelected
-        );
-      });
+      return ElevatedButton.icon(
+        onPressed: () async {
+          final s = await _showGoalSelect(keys);
+          onSelected(s);
+        },
+        icon: const Icon(Icons.expand_more_outlined),
+        iconAlignment: IconAlignment.end,
+        label: Text(selectedGoal?.replaceAll("#", "") ?? "Please select a goal"),
+      );
   }
 }
 
+Future<String?> _showGoalSelect(List<String> goals) async {
+  final selectedItem = await FlutterNativeSelect.openSelect(
+    items: goals.map<NativeSelectItem>((String goal) {
+      final String labelText = goal.replaceAll("#", "");
+      return NativeSelectItem(value: goal, label: labelText);
+    }).toList(),
+  );
+  
+  return selectedItem;
+}
