@@ -23,43 +23,55 @@ class _GoalSelectorState extends State<GoalSelector> {
         return ValueListenableBuilder(
           valueListenable: Hive.box(zebraBox).listenable(),
           builder: (context, box, widget) {
+            // todo remove cast
             final goals = box.toMap();
-            if (goals.isEmpty) {
-              // Render empty box when list of goals is empty.
-              return const SizedBox();
-            }
-            final List<String> keys = List.from(goals.keys);
-            // Sort keys by number of reports.
-            keys.sort((a, b) {
-              final aGoal = goals[a]!;
-              final bGoal = goals[b]!;
-              return bGoal.length - aGoal.length;
-            });
-            return LayoutBuilder(builder: (context, constraints) {
-              return DropdownMenu<String>(
-                width: constraints.maxWidth - 20, // <-- This is necessary to force the menu items to the dropdown width.
-                expandedInsets: const EdgeInsets.all(10), // <-- This is necessary to make the dropdown menu full with with some margin.
-                dropdownMenuEntries: keys.map<DropdownMenuEntry<String>>((String key) {
-                  final String labelText = "${key.replaceAll("#", "")} (${goals[key]?.length})";
-                  return DropdownMenuEntry<String>(
-                    value: key,
-                    label: labelText,
-                    labelWidget: Text(
-                        labelText,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                  );
-                }).toList(),
-                initialSelection: dropdownValue,
-                onSelected: (String? value) {
-                  model.setSelectedGoal(value);
-                }
-              );
-            });
+            return _GoalSelectorInternal(goals, dropdownValue, model.setSelectedGoal);
           }
         );
       }
     );
   }
 }
+class _GoalSelectorInternal extends StatelessWidget {
+  final Map<dynamic, dynamic> goals;
+  final String? selectedGoal;
+  final void Function(String?) onSelected;
+
+  const _GoalSelectorInternal(this.goals, this.selectedGoal, this.onSelected);
+
+  @override
+  Widget build(BuildContext context) {
+      if (goals.isEmpty) {
+        // Render empty box when list of goals is empty.
+        return const SizedBox();
+      }
+      final List<String> keys = List.from(goals.keys);
+      // Sort keys by number of reports.
+      keys.sort((a, b) {
+        final aGoal = goals[a]!;
+        final bGoal = goals[b]!;
+        return bGoal.length - aGoal.length;
+      });
+      return LayoutBuilder(builder: (context, constraints) {
+        return DropdownMenu<String>(
+          width: constraints.maxWidth - 20, // <-- This is necessary to force the menu items to the dropdown width.
+          expandedInsets: const EdgeInsets.all(10), // <-- This is necessary to make the dropdown menu full with with some margin.
+          dropdownMenuEntries: keys.map<DropdownMenuEntry<String>>((String key) {
+            final String labelText = "${key.replaceAll("#", "")} (${goals[key]?.length})";
+            return DropdownMenuEntry<String>(
+              value: key,
+              label: labelText,
+              labelWidget: Text(
+                  labelText,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+            );
+          }).toList(),
+          initialSelection: selectedGoal,
+          onSelected: onSelected
+        );
+      });
+  }
+}
+
