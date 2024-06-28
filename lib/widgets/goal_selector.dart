@@ -51,6 +51,9 @@ class _GoalSelectorInternal extends StatelessWidget {
           final s = await _showGoalSelect(keys);
           onSelected(s);
         },
+        style: ElevatedButton.styleFrom(
+          minimumSize: const Size.fromHeight(40), // fromHeight use double.infinity as width and 40 is the height
+        ),
         icon: const Icon(Icons.expand_more_outlined),
         iconAlignment: IconAlignment.end,
         label: Text(selectedGoal?.replaceAll("#", "") ?? "Please select a goal"),
