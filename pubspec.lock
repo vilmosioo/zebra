@@ -254,14 +254,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
-  flutter_native_select:
-    dependency: "direct main"
-    description:
-      name: flutter_native_select
-      sha256: "71e5643fc1aa505e5ab54ac8a00c6a06a7d1fc4de2df6a1966cf9c52425ff3cf"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:

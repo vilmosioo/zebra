@@ -44,12 +44,12 @@ class HeatMap extends StatelessWidget {
               colorMode: ColorMode.color,
               datasets: datasets,
               initDate: max,
-              size: 40,
+              size: 50,
               borderRadius: 100,
               showColorTip: false,
               margin: const EdgeInsets.symmetric(
-                vertical: 5,
-                horizontal: 5
+                vertical: 10,
+                horizontal: 10
               ),
               colorsets: const {
                 0: Color.fromARGB(50, 255, 0, 0),
