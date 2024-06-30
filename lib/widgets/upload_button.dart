@@ -55,6 +55,9 @@ class UploadButton extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: Hive.box(zebraBox).listenable(),
       builder: (context, box, widget) {
+        closeDialog() => {
+          Navigator.pop(context, 'Cancel')
+        };
         final onPressed = box.isEmpty ? (
           () => import(box)
         ) : (
@@ -65,11 +68,14 @@ class UploadButton extends StatelessWidget {
               content: const Text('Uploading a new export zip file will erase any existing data. Are you sure you want to continue importing a new file?'),
               actions: <Widget>[
                 TextButton(
-                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  onPressed: closeDialog,
                   child: const Text('Cancel'),
                 ),
                 TextButton(
-                  onPressed: () { import(box); },
+                  onPressed: () async { 
+                    await import(box);
+                    closeDialog();
+                  },
                   child: const Text('Import'),
                 ),
               ],
