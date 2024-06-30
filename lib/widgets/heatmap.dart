@@ -38,12 +38,10 @@ class GoalsHeatMap extends StatelessWidget {
             for (var report in selectedGoal) {
               datasets[format.parse(report.date)] = report.isCompleted ? 1 : 0;
             }
-            // final max = datasets.keys.reduce((a,b) => a.isAfter(b) ? a : b);
             return HeatMap(
               defaultColor: Colors.white,
               colorMode: ColorMode.color,
               datasets: datasets,
-              // startDate: max,
               size: 40,
               borderRadius: 0,
               showColorTip: false,
