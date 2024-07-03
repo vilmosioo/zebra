@@ -23,8 +23,14 @@ class ZebraHomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GoalSelector(),
-            GoalsHeatMap(),
-            GoalsHeatMapCalendar(),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: GoalsHeatMap()
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: GoalsHeatMapCalendar()
+            ),
           ]
         ),
         floatingActionButton: const UploadButton(),
