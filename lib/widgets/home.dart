@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../model/goals.dart';
+import 'card.dart' as CardWidget;
 import 'goal_selector.dart';
 import 'heatmap.dart';
 import 'heatmap_calendar.dart';
@@ -23,12 +24,10 @@ class ZebraHomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GoalSelector(),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
+            CardWidget.Card(
               child: GoalsHeatMap()
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
+            CardWidget.Card(
               child: GoalsHeatMapCalendar()
             ),
           ]
