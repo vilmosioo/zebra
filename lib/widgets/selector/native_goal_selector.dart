@@ -4,7 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:zebra/model/goals.dart';
 
-import '../common/constants.dart';
+import '../../common/constants.dart';
 
 /// Widget to display a native selector for a list of goals.
 class NativeGoalSelector extends StatelessWidget {

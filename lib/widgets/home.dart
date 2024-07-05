@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 
 import '../model/goals.dart';
 import 'card.dart' as card_widget;
-import 'goal_selector.dart';
-import 'heatmap.dart';
-import 'heatmap_calendar.dart';
+import 'insights/heatmap.dart';
+import 'insights/heatmap_calendar.dart';
+import 'selector/goal_selector.dart';
 import 'upload_button.dart';
 
 class ZebraHomePage extends StatelessWidget {
