@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../model/goals.dart';
+import 'card.dart' as card_widget;
 import 'goal_selector.dart';
 import 'heatmap.dart';
+import 'heatmap_calendar.dart';
 import 'upload_button.dart';
 
 class ZebraHomePage extends StatelessWidget {
@@ -22,7 +24,12 @@ class ZebraHomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GoalSelector(),
-            HeatMap(),
+            card_widget.Card(
+              child: GoalsHeatMap()
+            ),
+            card_widget.Card(
+              child: GoalsHeatMapCalendar()
+            ),
           ]
         ),
         floatingActionButton: const UploadButton(),

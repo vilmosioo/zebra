@@ -12,8 +12,8 @@ import '../model/goals.dart';
 DateFormat format = DateFormat("E, d LLL y");
 
 /// Widget to display a calendar heatmap of a specific goal.
-class GoalsHeatMap extends StatelessWidget {
-  const GoalsHeatMap({super.key});
+class GoalsHeatMapCalendar extends StatelessWidget {
+  const GoalsHeatMapCalendar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,16 +38,18 @@ class GoalsHeatMap extends StatelessWidget {
             for (var report in selectedGoal) {
               datasets[format.parse(report.date)] = report.isCompleted ? 1 : 0;
             }
-            return HeatMap(
+            final max = datasets.keys.reduce((a,b) => a.isAfter(b) ? a : b);
+            return HeatMapCalendar(
               defaultColor: Colors.white,
               colorMode: ColorMode.color,
               datasets: datasets,
+              initDate: max,
               size: 40,
-              borderRadius: 0,
+              borderRadius: 100,
               showColorTip: false,
               margin: const EdgeInsets.symmetric(
-                vertical: 1,
-                horizontal: 1
+                vertical: 5,
+                horizontal: 5
               ),
               colorsets: const {
                 0: Color.fromARGB(50, 255, 0, 0),
