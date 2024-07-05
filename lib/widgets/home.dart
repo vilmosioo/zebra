@@ -1,12 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:zebra/widgets/selector/native_goal_selector.dart';
 
 import '../model/goals.dart';
 import 'card.dart' as card_widget;
-import 'goal_selector.dart';
-import 'heatmap.dart';
-import 'heatmap_calendar.dart';
+import 'insights/heatmap.dart';
+import 'insights/heatmap_calendar.dart';
+import 'selector/goal_selector.dart';
 import 'upload_button.dart';
 
 class ZebraHomePage extends StatelessWidget {
@@ -14,20 +15,22 @@ class ZebraHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final platform = Theme.of(context).platform;
+    bool isMobile = platform == TargetPlatform.iOS || platform == TargetPlatform.android;
     return ChangeNotifierProvider(
       create: (context) => GoalsModel(),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Zebra'),
         ),
-        body: const Column(
+        body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            GoalSelector(),
-            card_widget.Card(
+            isMobile ? const NativeGoalSelector() : const GoalSelector(),
+            const card_widget.Card(
               child: GoalsHeatMap()
             ),
-            card_widget.Card(
+            const card_widget.Card(
               child: GoalsHeatMapCalendar()
             ),
           ]
