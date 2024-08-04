@@ -1,13 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zebra/widgets/selector/native_goal_selector.dart';
 
 import '../model/goals.dart';
 import 'card.dart' as card_widget;
 import 'insights/heatmap.dart';
 import 'insights/heatmap_calendar.dart';
 import 'selector/goal_selector.dart';
+import 'selector/native_goal_selector.dart';
 import 'upload_button.dart';
 
 class ZebraHomePage extends StatelessWidget {

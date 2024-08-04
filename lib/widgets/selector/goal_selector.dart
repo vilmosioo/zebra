@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:zebra/model/goals.dart';
 
 import '../../common/constants.dart';
+import '../../model/goals.dart';
 
 /// Widget to display a selector for a list of goals.
 class GoalSelector extends StatefulWidget {
