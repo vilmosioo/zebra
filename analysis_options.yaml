@@ -24,6 +24,8 @@ linter:
   rules:
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
     directives_ordering: true
+    # avoid root imports https://dart.dev/tools/linter-rules/prefer_relative_imports
+    prefer_relative_imports: true
 
 analyzer:
   errors:
