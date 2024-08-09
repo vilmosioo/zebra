@@ -58,7 +58,7 @@ Future<Map<String, List<Goal>>> getAndParseFinchExport(FilePickerResult? result)
 /// Function that parses Finch zip export file and updates the goals model.
 Future<Archive> parseFinchExport(FilePickerResult? result) async {
   if (result == null || !result.files.isNotEmpty) {
-    throw "Failed to read file from zip file";
+    throw "Failed to read file, zip is empty.";
   }
   final bytes = result.files.first.bytes?.toList();
   if (bytes == null) {
