@@ -15,17 +15,12 @@ Future<List<Journey>> getAndParseFinchExportForJourneys(FilePickerResult? result
       final goalBytes = file.content as List<int>;
       final journeyRaw = (jsonDecode(utf8.decode(goalBytes)) as Map<String, dynamic>)['data'];
       
-      final journeys = List<Journey>.empty();
+      final journeys = <Journey>[];
       for (var journey in journeyRaw) {
-        try {
-          final g = Journey.fromJson(journey);
-          // Only save repeating goals
-          if (g.bulletType == 3) {
-            journeys.add(journey);
-          }
-        } catch (e) {
-          // todo find out why this exception is throw, journey variable should be parseable by Journey 
-          print(e);
+        final g = Journey.fromJson(journey);
+        // Journeys have type 3
+        if (g.bulletType == 3) {
+          journeys.add(g);
         }
       }
       return journeys;
