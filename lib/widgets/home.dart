@@ -7,6 +7,7 @@ import 'card.dart' as card_widget;
 import 'insights/heatmap.dart';
 import 'insights/heatmap_calendar.dart';
 import 'selector/goal_selector.dart';
+import 'selector/journey_selector.dart';
 import 'selector/native_goal_selector.dart';
 import 'upload_button.dart';
 
@@ -26,7 +27,7 @@ class ZebraHomePage extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            isMobile ? const NativeGoalSelector() : const GoalSelector(),
+            isMobile ? const NativeGoalSelector() : const JourneySelector(),
             const card_widget.Card(
               child: GoalsHeatMap()
             ),

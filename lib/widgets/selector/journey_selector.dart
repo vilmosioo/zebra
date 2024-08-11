@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../common/constants.dart';
 import '../../model/goals.dart';
+import '../../model/journey.dart';
 
 /// Widget to display a selector for a list of goals.
 class JourneySelector extends StatefulWidget {
@@ -23,24 +24,18 @@ class _JourneySelectorState extends State<JourneySelector> {
         return ValueListenableBuilder(
           valueListenable: Hive.box(zebraBox).listenable(),
           builder: (context, box, widget) {
-            final goals = box.toMap();
-            if (goals.isEmpty) {
-              // Render empty box when list of goals is empty.
+            final data = box.get(journeysKey) as List<Journey>?;
+            if (data == null || data.isEmpty) {
+              // Render empty box when list of journeys is empty.
               return const SizedBox();
             }
-            final List<String> keys = List.from(goals.keys);
-            // Sort keys by number of reports.
-            keys.sort((a, b) {
-              final aGoal = goals[a]!;
-              final bGoal = goals[b]!;
-              return bGoal.length - aGoal.length;
-            });
+            final List<String> keys = data.map((j) => j.name).toList();
             return LayoutBuilder(builder: (context, constraints) {
               return DropdownMenu<String>(
                 width: constraints.maxWidth - 20, // <-- This is necessary to force the menu items to the dropdown width.
                 expandedInsets: const EdgeInsets.all(10), // <-- This is necessary to make the dropdown menu full with with some margin.
                 dropdownMenuEntries: keys.map<DropdownMenuEntry<String>>((String key) {
-                  final String labelText = "${key.replaceAll("#", "")} (${goals[key]?.length})";
+                  final String labelText = key.replaceAll("#", "");
                   return DropdownMenuEntry<String>(
                     value: key,
                     label: labelText,
