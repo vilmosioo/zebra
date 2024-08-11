@@ -6,14 +6,14 @@ import '../../common/constants.dart';
 import '../../model/goals.dart';
 
 /// Widget to display a selector for a list of goals.
-class GoalSelector extends StatefulWidget {
-  const GoalSelector({super.key});
+class JourneySelector extends StatefulWidget {
+  const JourneySelector({super.key});
 
   @override
-  State<StatefulWidget> createState() => _GoalSelectorState();
+  State<StatefulWidget> createState() => _JourneySelectorState();
 }
 
-class _GoalSelectorState extends State<GoalSelector> {
+class _JourneySelectorState extends State<JourneySelector> {
   String? dropdownValue;
   
   @override
