@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../common/constants.dart';
 import '../../common/hive_util.dart';
+import '../../common/util.dart';
 import '../../model/journey.dart';
 import '../../model/journeys.dart';
 
@@ -52,7 +53,7 @@ class _JourneySelectorInternal extends StatelessWidget {
         ),
         icon: const Icon(Icons.expand_more_outlined),
         iconAlignment: IconAlignment.end,
-        label: Text(selectedJourney?.replaceAll("#", "") ?? "Please select a goal"),
+        label: Text(getJourneyLabel(journeys[selectedJourney], "Please select a goal")),
       );
   }
 }

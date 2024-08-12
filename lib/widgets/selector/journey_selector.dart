@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../common/constants.dart';
 import '../../common/hive_util.dart';
+import '../../common/util.dart';
 import '../../model/journeys.dart';
 
 /// Widget to display a selector for a list of goals.
@@ -35,7 +36,7 @@ class _JourneySelectorState extends State<JourneySelector> {
                 width: constraints.maxWidth - 20, // <-- This is necessary to force the menu items to the dropdown width.
                 expandedInsets: const EdgeInsets.all(10), // <-- This is necessary to make the dropdown menu full with with some margin.
                 dropdownMenuEntries: keys.map<DropdownMenuEntry<String>>((String key) {
-                  final String labelText = key.replaceAll("#", "");
+                  final String labelText = getJourneyLabel(data[key]);
                   return DropdownMenuEntry<String>(
                     value: key,
                     label: labelText,

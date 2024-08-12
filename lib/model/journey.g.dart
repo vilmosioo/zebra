@@ -19,17 +19,20 @@ class JourneyAdapter extends TypeAdapter<Journey> {
     return Journey(
       fields[0] as String,
       fields[1] as int,
+      fields[2] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Journey obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.bulletType);
+      ..write(obj.bulletType)
+      ..writeByte(2)
+      ..write(obj.icon);
   }
 
   @override
@@ -55,10 +58,12 @@ Journey _$JourneyFromJson(Map<String, dynamic> json) {
   return Journey(
     json['text'] as String,
     (json['bullet_type'] as num).toInt(),
+    json['preferred_emoji_char'] as String?,
   );
 }
 
 Map<String, dynamic> _$JourneyToJson(Journey instance) => <String, dynamic>{
       'text': instance.name,
       'bullet_type': instance.bulletType,
+      'preferred_emoji_char': instance.icon,
     };

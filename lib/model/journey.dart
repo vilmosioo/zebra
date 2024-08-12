@@ -12,7 +12,7 @@ part 'journey.g.dart';
 /// This class is written to hive, so it needs a type adapter.
 @HiveType(typeId: 2)
 class Journey {
-  Journey(this.name, this.bulletType);
+  Journey(this.name, this.bulletType, this.icon);
 
   @JsonKey(required: true, name: 'text')
   @HiveField(0)
@@ -21,6 +21,11 @@ class Journey {
   @JsonKey(required: true, name: 'bullet_type')
   @HiveField(1)
   int bulletType;
+
+
+  @JsonKey(required: false, name: 'preferred_emoji_char')
+  @HiveField(2)
+  String? icon;
 
   /// A necessary factory constructor for creating a new Journey instance
   /// from a map. Pass the map to the generated `_$JourneyFromJson()` constructor.
