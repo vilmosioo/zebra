@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/constants.dart';
-import '../../model/goals.dart';
+import '../../model/journeys.dart';
 
 // Thu, 9 Nov 2023 01:00:00
 DateFormat format = DateFormat("E, d LLL y");
@@ -17,7 +17,7 @@ class GoalsHeatMapCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<GoalsModel>(
+    return Consumer<JourneysModel>(
       builder: (context, model, child) {
         return ValueListenableBuilder(
           valueListenable: Hive.box(zebraBox).listenable(),
@@ -27,10 +27,10 @@ class GoalsHeatMapCalendar extends StatelessWidget {
               return const SizedBox();
             }
             // Render empty box when no goal is selected.
-            if (model.selectedGoal == null) {
+            if (model.selectedJourney == null) {
               return const SizedBox();
             }
-            final selectedGoal = box.get(model.selectedGoal);
+            final selectedGoal = box.get(model.selectedJourney);
             if (selectedGoal == null) {
               throw "Selected goal does not exist";
             }

@@ -3,8 +3,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/constants.dart';
-import '../../model/goals.dart';
 import '../../model/journey.dart';
+import '../../model/journeys.dart';
 
 /// Widget to display a selector for a list of goals.
 class JourneySelector extends StatefulWidget {
@@ -19,7 +19,7 @@ class _JourneySelectorState extends State<JourneySelector> {
   
   @override
   Widget build(BuildContext context) {
-    return Consumer<GoalsModel>(
+    return Consumer<JourneysModel>(
       builder: (context, model, child) {
         return ValueListenableBuilder(
           valueListenable: Hive.box(zebraBox).listenable(),
@@ -48,7 +48,7 @@ class _JourneySelectorState extends State<JourneySelector> {
                 }).toList(),
                 initialSelection: dropdownValue,
                 onSelected: (String? value) {
-                  model.setSelectedGoal(value);
+                  model.setSelectedJourney(value);
                 }
               );
             });
