@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/constants.dart';
+import '../../common/hive_util.dart';
 import '../../model/journeys.dart';
 
 // Thu, 9 Nov 2023 01:00:00
@@ -30,14 +31,12 @@ class GoalsHeatMap extends StatelessWidget {
             if (model.selectedJourney == null) {
               return const SizedBox();
             }
-            final selectedGoal = box.get(model.selectedJourney);
-            if (selectedGoal == null) {
+            final selectedJourney = getSelectedJourney(box, model.selectedJourney);
+            if (selectedJourney == null) {
               throw "Selected goal does not exist";
             }
             final datasets = <DateTime, int>{};
-            for (var report in selectedGoal) {
-              datasets[format.parse(report.date)] = report.isCompleted ? 1 : 0;
-            }
+            // todo get datasets from selected journey
             return HeatMap(
               defaultColor: Colors.white,
               colorMode: ColorMode.color,

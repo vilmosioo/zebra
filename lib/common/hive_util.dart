@@ -13,4 +13,10 @@ Future<void> saveJourneys(Box box, List<Journey> journeys) async {
   await box.delete(journeysKey);
   await box.put(journeysKey, { for (var v in journeys) v.name : v });
 }
-      
+
+Journey? getSelectedJourney(Box box, String? selectedJourney) {
+  if (selectedJourney == null) {
+    return null;
+  }
+  return getJourneys(box)?[selectedJourney];
+}
