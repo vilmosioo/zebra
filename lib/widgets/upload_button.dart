@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../common/constants.dart';
+import '../common/hive_util.dart';
 import '../common/util.dart';
 
 
@@ -17,8 +18,7 @@ class UploadButton extends StatelessWidget {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["zip"], withData: true );
       final journeys = await getAndParseFinchExportForJourneys(result);
-      await box.delete(journeysKey);
-      await box.put(journeysKey, journeys);
+      await saveJourneys(box, journeys);
       Fluttertoast.showToast(
         msg: "Imported ${journeys.length} journeys",
         toastLength: Toast.LENGTH_SHORT,

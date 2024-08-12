@@ -4,6 +4,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/constants.dart';
+import '../../common/hive_util.dart';
+import '../../model/journey.dart';
 import '../../model/journeys.dart';
 
 /// Widget to display a native selector for a list of goals.
@@ -17,8 +19,8 @@ class NativeJourneySelector extends StatelessWidget {
         return ValueListenableBuilder(
           valueListenable: Hive.box(zebraBox).listenable(),
           builder: (context, box, widget) {
-            final goals = box.get(journeysKey);
-            return _JourneySelectorInternal(goals, model.selectedJourney, model.setSelectedJourney);
+            final journeys = getJourneys(box);
+            return _JourneySelectorInternal(journeys ?? <String, Journey>{}, model.selectedJourney, model.setSelectedJourney);
           }
         );
       }
@@ -26,7 +28,7 @@ class NativeJourneySelector extends StatelessWidget {
   }
 }
 class _JourneySelectorInternal extends StatelessWidget {
-  final Map<dynamic, dynamic> journeys;
+  final Map<String, Journey> journeys;
   final String? selectedJourney;
   final void Function(String?) onSelected;
 
@@ -39,12 +41,7 @@ class _JourneySelectorInternal extends StatelessWidget {
         return const SizedBox();
       }
       final List<String> keys = List.from(journeys.keys);
-      // Sort keys by number of reports.
-      keys.sort((a, b) {
-        final aGoal = journeys[a]!;
-        final bGoal = journeys[b]!;
-        return bGoal.length - aGoal.length;
-      });
+      // todo Sort keys by number of reports.
       return ElevatedButton.icon(
         onPressed: () async {
           final s = await _showGoalSelect(keys);
