@@ -37,12 +37,12 @@ class JourneyHeatMapCalendar extends StatelessWidget {
             }
             final datasets = <DateTime, int>{};
             // todo generate datasets from journey
-            final max = datasets.keys.reduce((a,b) => a.isAfter(b) ? a : b);
+            // final max = datasets.keys.reduce((a,b) => a.isAfter(b) ? a : b);
             return HeatMapCalendar(
               defaultColor: Colors.white,
               colorMode: ColorMode.color,
               datasets: datasets,
-              initDate: max,
+              // initDate: max,
               size: 40,
               borderRadius: 100,
               showColorTip: false,
