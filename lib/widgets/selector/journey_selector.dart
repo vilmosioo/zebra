@@ -3,44 +3,40 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/constants.dart';
-import '../../model/goals.dart';
+import '../../common/hive_util.dart';
+import '../../common/util.dart';
+import '../../model/journeys.dart';
 
 /// Widget to display a selector for a list of goals.
-class GoalSelector extends StatefulWidget {
-  const GoalSelector({super.key});
+class JourneySelector extends StatefulWidget {
+  const JourneySelector({super.key});
 
   @override
-  State<StatefulWidget> createState() => _GoalSelectorState();
+  State<StatefulWidget> createState() => _JourneySelectorState();
 }
 
-class _GoalSelectorState extends State<GoalSelector> {
+class _JourneySelectorState extends State<JourneySelector> {
   String? dropdownValue;
   
   @override
   Widget build(BuildContext context) {
-    return Consumer<GoalsModel>(
+    return Consumer<JourneysModel>(
       builder: (context, model, child) {
         return ValueListenableBuilder(
           valueListenable: Hive.box(zebraBox).listenable(),
           builder: (context, box, widget) {
-            final goals = box.toMap();
-            if (goals.isEmpty) {
-              // Render empty box when list of goals is empty.
+            final data = getJourneys(box);
+            if (data == null || data.isEmpty) {
+              // Render empty box when list of journeys is empty.
               return const SizedBox();
             }
-            final List<String> keys = List.from(goals.keys);
-            // Sort keys by number of reports.
-            keys.sort((a, b) {
-              final aGoal = goals[a]!;
-              final bGoal = goals[b]!;
-              return bGoal.length - aGoal.length;
-            });
+            final List<String> keys = data.keys.toList();
             return LayoutBuilder(builder: (context, constraints) {
               return DropdownMenu<String>(
                 width: constraints.maxWidth - 20, // <-- This is necessary to force the menu items to the dropdown width.
                 expandedInsets: const EdgeInsets.all(10), // <-- This is necessary to make the dropdown menu full with with some margin.
                 dropdownMenuEntries: keys.map<DropdownMenuEntry<String>>((String key) {
-                  final String labelText = "${key.replaceAll("#", "")} (${goals[key]?.length})";
+                  final String labelText = getJourneyLabel(data[key]);
                   return DropdownMenuEntry<String>(
                     value: key,
                     label: labelText,
@@ -53,7 +49,7 @@ class _GoalSelectorState extends State<GoalSelector> {
                 }).toList(),
                 initialSelection: dropdownValue,
                 onSelected: (String? value) {
-                  model.setSelectedGoal(value);
+                  model.setSelectedJourney(value);
                 }
               );
             });

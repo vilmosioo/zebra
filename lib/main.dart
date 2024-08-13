@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'common/constants.dart';
+import 'model/journey.dart';
 import 'model/report.dart';
 import 'widgets/home.dart';
 
 void main() async {
   Hive.registerAdapter(ReportAdapter()); 
+  Hive.registerAdapter(JourneyAdapter()); 
   await Hive.initFlutter();
   await Hive.openBox(zebraBox);
   runApp(const ZebraApp());
