@@ -28,10 +28,10 @@ class ZebraHomePage extends StatelessWidget {
           children: [
             isMobile ? const NativeJourneySelector() : const JourneySelector(),
             const card_widget.Card(
-              child: GoalsHeatMap()
+              child: JourneyHeatMap()
             ),
             const card_widget.Card(
-              child: GoalsHeatMapCalendar()
+              child: JourneyHeatMapCalendar()
             ),
           ]
         ),

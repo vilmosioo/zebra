@@ -12,9 +12,9 @@ import '../../model/journeys.dart';
 // Thu, 9 Nov 2023 01:00:00
 DateFormat format = DateFormat("E, d LLL y");
 
-/// Widget to display a calendar heatmap of a specific goal.
-class GoalsHeatMap extends StatelessWidget {
-  const GoalsHeatMap({super.key});
+/// Widget to display a calendar heatmap of a specific journey.
+class JourneyHeatMap extends StatelessWidget {
+  const JourneyHeatMap({super.key});
 
   @override
   Widget build(BuildContext context) {
