@@ -6,19 +6,18 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/constants.dart';
-import '../../common/hive_util.dart';
-import '../../model/journeys.dart';
+import '../../model/goals.dart';
 
 // Thu, 9 Nov 2023 01:00:00
 DateFormat format = DateFormat("E, d LLL y");
 
-/// Widget to display a calendar heatmap of a specific journey.
-class JourneyHeatMap extends StatelessWidget {
-  const JourneyHeatMap({super.key});
+/// Widget to display a calendar heatmap of a specific goal.
+class GoalsHeatMap extends StatelessWidget {
+  const GoalsHeatMap({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<JourneysModel>(
+    return Consumer<GoalsModel>(
       builder: (context, model, child) {
         return ValueListenableBuilder(
           valueListenable: Hive.box(zebraBox).listenable(),
@@ -28,15 +27,17 @@ class JourneyHeatMap extends StatelessWidget {
               return const SizedBox();
             }
             // Render empty box when no goal is selected.
-            if (model.selectedJourney == null) {
+            if (model.selectedGoal == null) {
               return const SizedBox();
             }
-            final selectedJourney = getSelectedJourney(box, model.selectedJourney);
-            if (selectedJourney == null) {
+            final selectedGoal = box.get(model.selectedGoal);
+            if (selectedGoal == null) {
               throw "Selected goal does not exist";
             }
             final datasets = <DateTime, int>{};
-            // todo get datasets from selected journey
+            for (var report in selectedGoal) {
+              datasets[format.parse(report.date)] = report.isCompleted ? 1 : 0;
+            }
             return HeatMap(
               defaultColor: Colors.white,
               colorMode: ColorMode.color,

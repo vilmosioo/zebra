@@ -73,13 +73,3 @@ Future<Archive> parseFinchExport(FilePickerResult? result) async {
     rethrow;
   }
 }
-
-String getJourneyLabel(Journey? journey, [String? defaultValue]) {
-  if (journey == null) {
-    return defaultValue ?? "";
-  }
-  if (journey.icon == null) {
-    return journey.name.replaceAll("#", "");
-  }
-  return '${journey.icon} ${journey.name.replaceAll("#", "")}';
-}

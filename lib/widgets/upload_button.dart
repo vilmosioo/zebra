@@ -5,8 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../common/constants.dart';
-import '../common/hive_util.dart';
 import '../common/util.dart';
+import '../model/report.dart';
 
 
 /// Widget that display an upload button that accepts Finch backup zip file.
@@ -17,8 +17,23 @@ class UploadButton extends StatelessWidget {
   Future<void> import(Box box) async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["zip"], withData: true );
+      final goals = await getAndParseFinchExport(result);
       final journeys = await getAndParseFinchExportForJourneys(result);
-      await saveJourneys(box, journeys);
+      final reports = <String, List<Report>>{};
+      for (var key in goals.keys) {
+        final goal = goals[key];
+        if (goal == null) {
+          continue;
+        }
+        if (reports[key] == null) {
+          reports[key] = [];
+        }
+        for (var g in goal) {
+          reports[key]?.add(Report(g.date, g.completedTime != ""));
+        }
+      }
+      await box.clear();
+      await box.putAll(reports);
       Fluttertoast.showToast(
         msg: "Imported ${journeys.length} journeys",
         toastLength: Toast.LENGTH_SHORT,
