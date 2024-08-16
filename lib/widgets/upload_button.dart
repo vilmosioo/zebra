@@ -18,7 +18,6 @@ class UploadButton extends StatelessWidget {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["zip"], withData: true );
       final goals = await getAndParseFinchExport(result);
-      final journeys = await getAndParseFinchExportForJourneys(result);
       final reports = <String, List<Report>>{};
       for (var key in goals.keys) {
         final goal = goals[key];
@@ -35,7 +34,7 @@ class UploadButton extends StatelessWidget {
       await box.clear();
       await box.putAll(reports);
       Fluttertoast.showToast(
-        msg: "Imported ${journeys.length} journeys",
+        msg: "Imported",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         fontSize: 16.0,
