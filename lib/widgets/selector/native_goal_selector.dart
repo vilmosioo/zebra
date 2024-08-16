@@ -4,45 +4,48 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/constants.dart';
-import '../../common/hive_util.dart';
-import '../../common/util.dart';
-import '../../model/journey.dart';
-import '../../model/journeys.dart';
+import '../../model/goals.dart';
 
 /// Widget to display a native selector for a list of goals.
-class NativeJourneySelector extends StatelessWidget {
-  const NativeJourneySelector({super.key});
+class NativeGoalSelector extends StatelessWidget {
+  const NativeGoalSelector({super.key});
   
   @override
   Widget build(BuildContext context) {
-    return Consumer<JourneysModel>(
+    return Consumer<GoalsModel>(
       builder: (context, model, child) {
         return ValueListenableBuilder(
           valueListenable: Hive.box(zebraBox).listenable(),
           builder: (context, box, widget) {
-            final journeys = getJourneys(box);
-            return _JourneySelectorInternal(journeys ?? <String, Journey>{}, model.selectedJourney, model.setSelectedJourney);
+            // todo remove cast
+            final goals = box.toMap();
+            return _GoalSelectorInternal(goals, model.selectedGoal, model.setSelectedGoal);
           }
         );
       }
     );
   }
 }
-class _JourneySelectorInternal extends StatelessWidget {
-  final Map<String, Journey> journeys;
-  final String? selectedJourney;
+class _GoalSelectorInternal extends StatelessWidget {
+  final Map<dynamic, dynamic> goals;
+  final String? selectedGoal;
   final void Function(String?) onSelected;
 
-  const _JourneySelectorInternal(this.journeys, this.selectedJourney, this.onSelected);
+  const _GoalSelectorInternal(this.goals, this.selectedGoal, this.onSelected);
 
   @override
   Widget build(BuildContext context) {
-      if (journeys.isEmpty) {
+      if (goals.isEmpty) {
         // Render empty box when list of goals is empty.
         return const SizedBox();
       }
-      final List<String> keys = List.from(journeys.keys);
-      // todo Sort keys by number of reports.
+      final List<String> keys = List.from(goals.keys);
+      // Sort keys by number of reports.
+      keys.sort((a, b) {
+        final aGoal = goals[a]!;
+        final bGoal = goals[b]!;
+        return bGoal.length - aGoal.length;
+      });
       return ElevatedButton.icon(
         onPressed: () async {
           final s = await _showGoalSelect(keys);
@@ -53,7 +56,7 @@ class _JourneySelectorInternal extends StatelessWidget {
         ),
         icon: const Icon(Icons.expand_more_outlined),
         iconAlignment: IconAlignment.end,
-        label: Text(getJourneyLabel(journeys[selectedJourney], "Please select a goal")),
+        label: Text(selectedGoal?.replaceAll("#", "") ?? "Please select a goal"),
       );
   }
 }

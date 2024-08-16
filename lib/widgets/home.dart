@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../model/journeys.dart';
+import '../model/goals.dart';
 import 'card.dart' as card_widget;
 import 'insights/heatmap.dart';
 import 'insights/heatmap_calendar.dart';
-import 'selector/journey_selector.dart';
-import 'selector/native_journey_selector.dart';
+import 'selector/goal_selector.dart';
+import 'selector/native_goal_selector.dart';
 import 'upload_button.dart';
 
 class ZebraHomePage extends StatelessWidget {
@@ -18,7 +18,7 @@ class ZebraHomePage extends StatelessWidget {
     final platform = Theme.of(context).platform;
     bool isMobile = platform == TargetPlatform.iOS || platform == TargetPlatform.android;
     return ChangeNotifierProvider(
-      create: (context) => JourneysModel(),
+      create: (context) => GoalsModel(),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Zebra'),
@@ -26,12 +26,12 @@ class ZebraHomePage extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            isMobile ? const NativeJourneySelector() : const JourneySelector(),
+            isMobile ? const NativeGoalSelector() : const GoalSelector(),
             const card_widget.Card(
-              child: JourneyHeatMap()
+              child: GoalsHeatMap()
             ),
             const card_widget.Card(
-              child: JourneyHeatMapCalendar()
+              child: GoalsHeatMapCalendar()
             ),
           ]
         ),
