@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../common/constants.dart';
+import '../../model/report.dart';
 import '../common/goal.dart';
 
 class GoalsPage extends StatelessWidget {
@@ -25,11 +26,13 @@ class GoalsPage extends StatelessWidget {
           final bGoal = goals[b]!;
           return bGoal.length - aGoal.length;
         });
-        return ListView(
+        return ListView.separated(
           padding: const EdgeInsets.all(8),
-          children: keys.map<Widget>((String key) {
-            return Goal(goalName: key, reports: goals[key]);
-          }).toList(),
+          itemCount: keys.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Goal(goalName: keys[index], reports: goals[keys[index]] ?? List.empty());
+          },
+          separatorBuilder: (BuildContext context, int index) => const Divider(),
         );
       }
     );
