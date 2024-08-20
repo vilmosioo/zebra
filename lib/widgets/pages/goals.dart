@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../common/constants.dart';
+import '../common/goal.dart';
 
 class GoalsPage extends StatelessWidget {
   const GoalsPage({super.key});
@@ -27,8 +28,7 @@ class GoalsPage extends StatelessWidget {
         return ListView(
           padding: const EdgeInsets.all(8),
           children: keys.map<Widget>((String key) {
-            final String labelText = "${key.replaceAll("#", "")} (${goals[key]?.length})";
-            return Text(labelText);
+            return Goal(goalName: key, reports: goals[key]);
           }).toList(),
         );
       }
