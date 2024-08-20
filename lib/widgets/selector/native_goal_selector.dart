@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_select/flutter_native_select.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/constants.dart';
@@ -15,7 +14,7 @@ class NativeGoalSelector extends StatelessWidget {
     return Consumer<GoalsModel>(
       builder: (context, model, child) {
         return ValueListenableBuilder(
-          valueListenable: Hive.box(zebraBox).listenable(),
+          valueListenable: getZebraBox(),
           builder: (context, box, widget) {
             // todo remove cast
             final goals = box.toMap();
