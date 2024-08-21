@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/constants.dart';
@@ -20,7 +21,7 @@ class _GoalSelectorState extends State<GoalSelector> {
     return Consumer<GoalsModel>(
       builder: (context, model, child) {
         return ValueListenableBuilder(
-          valueListenable: getZebraBox(),
+          valueListenable: Hive.box(zebraBox).listenable(),
           builder: (context, box, widget) {
             final goals = box.toMap();
             if (goals.isEmpty) {
