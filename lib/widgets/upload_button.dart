@@ -53,7 +53,7 @@ class UploadButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: getZebraBox(),
+      valueListenable: Hive.box(zebraBox).listenable(),
       builder: (context, box, widget) {
         closeDialog() => {
           Navigator.pop(context, 'Cancel')

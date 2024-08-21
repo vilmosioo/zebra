@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,7 @@ class GoalsHeatMap extends StatelessWidget {
     return Consumer<GoalsModel>(
       builder: (context, model, child) {
         return ValueListenableBuilder(
-          valueListenable: getZebraBox(),
+          valueListenable: Hive.box(zebraBox).listenable(),
           builder: (context, box, widget) {
             // Render empty box when list of goals is empty.
             if (box.isEmpty) {
