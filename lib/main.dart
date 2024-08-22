@@ -9,7 +9,7 @@ import 'widgets/home.dart';
 void main() async {
   Hive.registerAdapter(ReportAdapter()); 
   await Hive.initFlutter();
-  await Hive.openBox(zebraBox);
+  await Hive.openBox<List<Record>>(zebraBox);
   runApp(const ZebraApp());
 }
 
