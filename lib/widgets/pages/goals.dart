@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../common/constants.dart';
-import '../../model/report.dart';
 import '../common/goal.dart';
 
 class GoalsPage extends StatelessWidget {
