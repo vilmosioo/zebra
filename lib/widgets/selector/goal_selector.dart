@@ -22,8 +22,8 @@ class _GoalSelectorState extends State<GoalSelector> {
         return ValueListenableBuilder(
           valueListenable: getZebraBox(),
           builder: (context, box, widget) {
-            final goals = box.toMap();
-            if (goals.isEmpty) {
+            final goals = box.get('goals')?.goals;
+            if (goals == null || goals.isEmpty) {
               // Render empty box when list of goals is empty.
               return const SizedBox();
             }

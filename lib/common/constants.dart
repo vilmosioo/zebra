@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../model/report.dart';
+import '../model/main.dart';
 
 const zebraBox = "ZebraBox";
 
-ValueListenable<Box<List<Report>>> getZebraBox() {
-  return Hive.box<List<Report>>(zebraBox).listenable();
+ValueListenable<Box<Main>> getZebraBox() {
+  return Hive.box<Main>(zebraBox).listenable();
 }

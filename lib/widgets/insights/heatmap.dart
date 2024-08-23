@@ -29,7 +29,7 @@ class GoalsHeatMap extends StatelessWidget {
             if (model.selectedGoal == null) {
               return const SizedBox();
             }
-            final selectedGoal = box.get(model.selectedGoal);
+            final selectedGoal = box.get('goals')?.goals[model.selectedGoal];
             if (selectedGoal == null) {
               throw "Selected goal does not exist";
             }

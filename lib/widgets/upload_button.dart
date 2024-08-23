@@ -32,7 +32,7 @@ class UploadButton extends StatelessWidget {
         }
       }
       await box.clear();
-      await box.putAll(reports);
+      await box.put('goals', reports);
       Fluttertoast.showToast(
         msg: "Imported",
         toastLength: Toast.LENGTH_SHORT,
