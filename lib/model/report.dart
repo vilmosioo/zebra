@@ -8,7 +8,7 @@ part 'report.g.dart';
 /// This class is written to hive, so it needs a type adapter.
 @HiveType(typeId: 1)
 class Report {
-  Report(this.date, this.isCompleted);
+  Report({ required this.date, required this.isCompleted });
 
   // @JsonKey(required: true, name: 'date')
   @HiveField(0)

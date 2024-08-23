@@ -28,7 +28,7 @@ class UploadButton extends StatelessWidget {
           reports[key] = [];
         }
         for (var g in goal) {
-          reports[key]?.add(Report(g.date, g.completedTime != ""));
+          reports[key]?.add(Report(date: g.date, isCompleted: g.completedTime != ""));
         }
       }
       await box.clear();

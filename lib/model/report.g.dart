@@ -17,8 +17,8 @@ class ReportAdapter extends TypeAdapter<Report> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Report(
-      fields[0] as String,
-      fields[1] as bool,
+      date: fields[0] as String,
+      isCompleted: fields[1] as bool,
     );
   }
 
