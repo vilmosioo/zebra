@@ -10,11 +10,9 @@ part 'report.g.dart';
 class Report {
   Report({ required this.date, required this.isCompleted });
 
-  // @JsonKey(required: true, name: 'date')
   @HiveField(0)
   String date;
 
-  // @JsonKey(required: true, name: 'isCompleted')
   @HiveField(1)
   bool isCompleted;
 }

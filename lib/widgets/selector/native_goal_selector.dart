@@ -17,8 +17,7 @@ class NativeGoalSelector extends StatelessWidget {
         return ValueListenableBuilder(
           valueListenable: getZebraBox(),
           builder: (context, box, widget) {
-            // todo remove cast
-            final goals = box.get('goals')?.goals;
+            final goals = box.get(mainKey)?.goals;
             return _GoalSelectorInternal(goals, model.selectedGoal, model.setSelectedGoal);
           }
         );
