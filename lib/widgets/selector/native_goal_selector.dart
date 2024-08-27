@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_select/flutter_native_select.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/constants.dart';
 import '../../model/goals.dart';
+import '../../model/report.dart';
 
 /// Widget to display a native selector for a list of goals.
 class NativeGoalSelector extends StatelessWidget {
@@ -15,10 +15,9 @@ class NativeGoalSelector extends StatelessWidget {
     return Consumer<GoalsModel>(
       builder: (context, model, child) {
         return ValueListenableBuilder(
-          valueListenable: Hive.box(zebraBox).listenable(),
+          valueListenable: getZebraBox(),
           builder: (context, box, widget) {
-            // todo remove cast
-            final goals = box.toMap();
+            final goals = box.get(mainKey)?.goals;
             return _GoalSelectorInternal(goals, model.selectedGoal, model.setSelectedGoal);
           }
         );
@@ -27,7 +26,7 @@ class NativeGoalSelector extends StatelessWidget {
   }
 }
 class _GoalSelectorInternal extends StatelessWidget {
-  final Map<dynamic, dynamic> goals;
+  final Map<String, List<Report>>? goals;
   final String? selectedGoal;
   final void Function(String?) onSelected;
 
@@ -35,15 +34,15 @@ class _GoalSelectorInternal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      if (goals.isEmpty) {
+      if (goals == null || goals!.isEmpty) {
         // Render empty box when list of goals is empty.
         return const SizedBox();
       }
-      final List<String> keys = List.from(goals.keys);
+      final List<String> keys = List.from(goals!.keys);
       // Sort keys by number of reports.
       keys.sort((a, b) {
-        final aGoal = goals[a]!;
-        final bGoal = goals[b]!;
+        final aGoal = goals![a]!;
+        final bGoal = goals![b]!;
         return bGoal.length - aGoal.length;
       });
       return ElevatedButton.icon(

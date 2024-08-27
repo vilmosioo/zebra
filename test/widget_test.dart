@@ -12,13 +12,14 @@ import 'package:hive_test/hive_test.dart';
 import 'package:zebra/common/constants.dart';
 
 import 'package:zebra/main.dart';
+import 'package:zebra/model/main.dart';
 
 void main() {
   Box? box;
 
   setUp(() async {
     await setUpTestHive();
-    box = await Hive.openBox(zebraBox);
+    box = await Hive.openBox<Main>(zebraBox);
     // todo add some testing data
     // have to put the call inside a `runAsync()`
     // await tester.runAsync(() => box.put('key', 'hello world'));
