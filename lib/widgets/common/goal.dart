@@ -14,7 +14,8 @@ class Goal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      color: Theme.of(context).colorScheme.primary,
+      margin: const EdgeInsets.only(bottom: 3),
+      color: Theme.of(context).primaryColor,
       child: Center(child: GoalName(completion: reports.length, goalName: goalName,)),
     );
   }

@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../common/constants.dart';
 import '../common/goal.dart';
@@ -11,27 +10,25 @@ class GoalsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: Hive.box(zebraBox).listenable(),
+      valueListenable: getZebraBox(),
       builder: (context, box, widget) {
-        final goals = box.toMap();
-        if (goals.isEmpty) {
+        final goals = box.get(mainKey)?.goals;
+        if (goals == null || goals.isEmpty) {
           // Render empty box when list of goals is empty.
           return const SizedBox();
         }
-        final List<String> keys = List.from(goals.keys);
+        final List<String> goalNames = List.from(goals.keys);
         // Sort keys by number of reports.
-        keys.sort((a, b) {
+        goalNames.sort((a, b) {
           final aGoal = goals[a]!;
           final bGoal = goals[b]!;
           return bGoal.length - aGoal.length;
         });
-        return ListView.separated(
-          padding: const EdgeInsets.all(8),
-          itemCount: keys.length,
+        return ListView.builder(
+          itemCount: goalNames.length,
           itemBuilder: (BuildContext context, int index) {
-            return Goal(goalName: keys[index], reports: goals[keys[index]] ?? List.empty());
-          },
-          separatorBuilder: (BuildContext context, int index) => const Divider(),
+            return Goal(goalName: goalNames[index], reports: goals[goalNames[index]] ?? List.empty());
+          }
         );
       }
     );
