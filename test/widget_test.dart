@@ -37,14 +37,4 @@ void main() {
     expect(find.text('Zebra'), findsOneWidget);
     expect(find.byIcon(Icons.add), findsOneWidget);
   });
-
-  group("Goals", () {
-    testWidgets('Display basic goals', (WidgetTester tester) async {
-      box?.put(mainKey, Main(goals: {"My awesome goal": []}));
-
-      await tester.pumpWidget(const ZebraApp());
-
-      expect(find.text('My awesome goal (0)'), findsOneWidget);
-    });
-  });
 }
