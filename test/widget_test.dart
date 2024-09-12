@@ -45,6 +45,6 @@ void main() {
       await tester.pumpWidget(const ZebraApp());
 
       expect(find.text('My awesome goal (0)'), findsOneWidget);
-    });
+    }, timeout: const Timeout(Duration(seconds: 10)));
   });
 }
