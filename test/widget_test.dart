@@ -27,6 +27,8 @@ void main() {
   });
 
   tearDown(() async {
+    // todo these methods refuse to run succesfully.
+    // need to find a way to clean up after unit tests
     await box?.deleteFromDisk();
     await tearDownTestHive();
   });
