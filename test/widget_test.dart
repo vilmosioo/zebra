@@ -10,9 +10,9 @@ import "package:flutter_test/flutter_test.dart";
 import "package:hive_flutter/hive_flutter.dart";
 import "package:hive_test/hive_test.dart";
 import "package:zebra/common/constants.dart";
-
 import "package:zebra/main.dart";
 import "package:zebra/model/hive/main.dart";
+import "package:zebra/model/hive/report.dart";
 
 void main() {
   Box? box;
@@ -39,12 +39,12 @@ void main() {
   });
 
   group("Goals", () {
-    testWidgets('Display basic goals', (WidgetTester tester) async {
-      box?.put(mainKey, Main(goals: {"My awesome goal": []}));
+    testWidgets("Display basic goals", (WidgetTester tester) async {
+      box?.put(mainKey, Main(goals: {"My awesome goal": [Report(date: "Thu, 9 Nov 2023 01:00:00", isCompleted: false)]}));
 
       await tester.pumpWidget(const ZebraApp());
 
-      expect(find.text('My awesome goal (0)'), findsOneWidget);
+      expect(find.text("My awesome goal (1)"), findsOneWidget);
     }, timeout: const Timeout(Duration(seconds: 10)));
   });
 }
