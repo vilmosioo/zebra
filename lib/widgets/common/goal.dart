@@ -12,12 +12,31 @@ class Goal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final navigator = Navigator.of(context);
     return Container(
-      height: 50,
+      // We need to wrap button in container because we can't set margins.
       margin: const EdgeInsets.only(bottom: 3),
-      color: Theme.of(context).primaryColor,
-      child: Center(child: GoalName(completion: reports.length, goalName: goalName,)),
+      child: ElevatedButton(
+        onPressed: () {
+          // navigator.push(route)
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Theme.of(context).primaryColor,
+          foregroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(2)),
+          ),
+        ),
+        child: GoalName(completion: reports.length, goalName: goalName,)
+      )
     );
+    // return Container(
+    //   height: 50,
+    //   margin: const EdgeInsets.only(bottom: 3),
+    //   color: Theme.of(context).primaryColor,
+    //   child: Center(child: GoalName(completion: reports.length, goalName: goalName,)),
+    // );
   }
 }
 
