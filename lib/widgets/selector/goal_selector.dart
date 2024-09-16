@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import "package:flutter/material.dart";
+import "package:provider/provider.dart";
 
-import '../../common/constants.dart';
-import '../../model/goals.dart';
+import "../../common/constants.dart";
+import "../../model/goals.dart";
 
 /// Widget to display a selector for a list of goals.
 class GoalSelector extends StatefulWidget {

@@ -1,10 +1,10 @@
 
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import "package:flutter/material.dart";
+import "package:provider/provider.dart";
 
-import '../model/goals.dart';
-import 'pages/goals.dart';
-import 'upload_button.dart';
+import "../model/goals.dart";
+import "pages/goals.dart";
+import "upload_button.dart";
 
 class ZebraHomePage extends StatelessWidget {
   const ZebraHomePage({super.key});
@@ -15,7 +15,7 @@ class ZebraHomePage extends StatelessWidget {
       create: (context) => GoalsModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Zebra'),
+          title: const Text("Zebra"),
         ),
         body: const GoalsPage(),
         floatingActionButton: const UploadButton(),

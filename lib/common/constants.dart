@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import "package:flutter/foundation.dart";
+import "package:hive_flutter/hive_flutter.dart";
 
-import '../model/main.dart';
+import "../model/main.dart";
 
 /// Name of the Hive box used by Zebra.
 const zebraBox = "ZebraBox";
