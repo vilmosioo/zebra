@@ -15,11 +15,13 @@ final _router = GoRouter(
   routes: [
     GoRoute(
       path: "/",
+      name: "home",
       builder: (context, state) => const ZebraHomePage(),
     ),
     GoRoute(
-      path: "/goals",
-      builder: (context, state) => GoalPage(goRouterState: state,),
+      name: "goal",
+      path: "/goals/:goal_name",
+      builder: (context, state) => GoalPage(goalName: state.pathParameters["goal_name"] ?? "No goal found",),
     ),
   ],
 );

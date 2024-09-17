@@ -1,14 +1,13 @@
 
 import "package:flutter/material.dart";
-import "package:go_router/go_router.dart";
 import "package:provider/provider.dart";
 
 import "../../model/goals.dart";
 
 class GoalPage extends StatelessWidget {
-  final GoRouterState? goRouterState;
+  final String? goalName;
 
-  const GoalPage({super.key, required this.goRouterState});
+  const GoalPage({super.key, required this.goalName});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,7 @@ class GoalPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Zebra"),
         ),
-        body: Text(goRouterState?.pathParameters["goal_name"] ?? "No goal found."),
+        body: Text(goalName ?? "No goal found."),
       )
     );
   }
