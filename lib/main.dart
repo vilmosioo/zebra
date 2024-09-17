@@ -7,6 +7,7 @@ import "common/constants.dart";
 import "model/main.dart";
 import "model/report.dart";
 import "widgets/home.dart";
+import "widgets/pages/goal.dart";
 
 // GoRouter configuration
 final _router = GoRouter(
@@ -14,6 +15,10 @@ final _router = GoRouter(
     GoRoute(
       path: "/",
       builder: (context, state) => const ZebraHomePage(),
+    ),
+    GoRoute(
+      path: "/goals",
+      builder: (context, state) => GoalPage(goRouterState: state,),
     ),
   ],
 );
@@ -31,14 +36,9 @@ class ZebraApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    return MaterialApp(
-      title: "Zebra",
-=======
     return MaterialApp.router(
       routerConfig: _router,
-      title: 'Zebra',
->>>>>>> 4a56a16 (Add home navigation)
+      title: "Zebra",
       theme: ThemeData(
         primaryColor: const Color.fromARGB(100, 65, 180, 255),
       ),
