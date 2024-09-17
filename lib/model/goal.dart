@@ -1,11 +1,11 @@
-import 'package:json_annotation/json_annotation.dart';
+import "package:json_annotation/json_annotation.dart";
 
-import 'cadence.dart';
+import "cadence.dart";
 
 /// This allows the `Goal` class to access private members in
 /// the generated file. The value for this is *.g.dart, where
 /// the star denotes the source file name.
-part 'goal.g.dart';
+part "goal.g.dart";
 
 /// An annotation for the code generator to know that this class needs the
 /// JSON serialization logic to be generated.
@@ -13,19 +13,19 @@ part 'goal.g.dart';
 class Goal {
   Goal(this.name, this.date, this.completedTime, this.scheduleTime, this.cadence);
 
-  @JsonKey(required: true, name: 'text')
+  @JsonKey(required: true, name: "text")
   String name;
 
-  @JsonKey(required: true, name: 'dt')
+  @JsonKey(required: true, name: "dt")
   String date;
 
-  @JsonKey(required: true, name: 'completed_time')
+  @JsonKey(required: true, name: "completed_time")
   String completedTime;
 
-  @JsonKey(required: true, name: 'schedule_time')
+  @JsonKey(required: true, name: "schedule_time")
   String scheduleTime;
 
-  @JsonKey(required: false, name: 'cadence')
+  @JsonKey(required: false, name: "cadence")
   Cadence? cadence;
 
   /// A necessary factory constructor for creating a new Goal instance

@@ -26,12 +26,16 @@ linter:
     directives_ordering: true
     # avoid root imports https://dart.dev/tools/linter-rules/prefer_relative_imports
     prefer_relative_imports: true
+    # use double quotes when possible
+    prefer_double_quotes: true
 
 analyzer:
   errors:
     unused_local_variable: error
     use_key_in_widget_constructors: error
     prefer_const_constructors: error
+  exclude: 
+    - '**/*.g.dart'
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

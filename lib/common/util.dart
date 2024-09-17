@@ -1,8 +1,8 @@
-import 'dart:convert';
+import "dart:convert";
 
-import 'package:archive/archive.dart';
-import 'package:file_picker/file_picker.dart';
-import '../model/goal.dart';
+import "package:archive/archive.dart";
+import "package:file_picker/file_picker.dart";
+import "../model/goal.dart";
 
 /// Function that parses Finch zip export file and updates the goals model.
 Future<Map<String, List<Goal>>> getAndParseFinchExport(FilePickerResult? result) async {
@@ -20,7 +20,7 @@ Future<Map<String, List<Goal>>> getAndParseFinchExport(FilePickerResult? result)
       // Goals are stored in Bullet.json
       if (file.isFile && file.name == "Bullet.json") {
         final goalBytes = file.content as List<int>;
-        final goalsRaw = (jsonDecode(utf8.decode(goalBytes)) as Map<String, dynamic>)['data'];
+        final goalsRaw = (jsonDecode(utf8.decode(goalBytes)) as Map<String, dynamic>)["data"];
         final goals = <String, List<Goal>>{};
         for (var goal in goalsRaw) {
           final g = Goal.fromJson(goal);

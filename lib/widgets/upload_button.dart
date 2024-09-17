@@ -1,13 +1,13 @@
 
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import "package:file_picker/file_picker.dart";
+import "package:flutter/material.dart";
+import "package:fluttertoast/fluttertoast.dart";
+import "package:hive_flutter/hive_flutter.dart";
 
-import '../common/constants.dart';
-import '../common/util.dart';
-import '../model/main.dart';
-import '../model/report.dart';
+import "../common/constants.dart";
+import "../common/util.dart";
+import "../model/main.dart";
+import "../model/report.dart";
 
 
 /// Widget that display an upload button that accepts Finch backup zip file.
@@ -57,7 +57,7 @@ class UploadButton extends StatelessWidget {
       valueListenable: getZebraBox(),
       builder: (context, box, widget) {
         closeDialog() => {
-          Navigator.pop(context, 'Cancel')
+          Navigator.pop(context, "Cancel")
         };
         final onPressed = box.isEmpty ? (
           () => import(box)
@@ -65,19 +65,19 @@ class UploadButton extends StatelessWidget {
           () => showDialog<String>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
-              title: const Text('Warning'),
-              content: const Text('Uploading a new export zip file will erase any existing data. Are you sure you want to continue importing a new file?'),
+              title: const Text("Warning"),
+              content: const Text("Uploading a new export zip file will erase any existing data. Are you sure you want to continue importing a new file?"),
               actions: <Widget>[
                 TextButton(
                   onPressed: closeDialog,
-                  child: const Text('Cancel'),
+                  child: const Text("Cancel"),
                 ),
                 TextButton(
                   onPressed: () async { 
                     await import(box);
                     closeDialog();
                   },
-                  child: const Text('Import'),
+                  child: const Text("Import"),
                 ),
               ],
             ),
@@ -85,7 +85,7 @@ class UploadButton extends StatelessWidget {
         );
         return FloatingActionButton(
           onPressed: onPressed,
-          tooltip: 'Upload',
+          tooltip: "Upload",
           child: const Icon(Icons.add),
         );
       }

@@ -1,8 +1,8 @@
 
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
-import '../../common/constants.dart';
-import '../common/goal.dart';
+import "../../common/constants.dart";
+import "../common/goal.dart";
 
 class GoalsPage extends StatelessWidget {
   const GoalsPage({super.key});

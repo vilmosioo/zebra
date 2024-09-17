@@ -1,11 +1,11 @@
-import 'package:hive_flutter/hive_flutter.dart';
+import "package:hive_flutter/hive_flutter.dart";
 
-import 'report.dart';
+import "report.dart";
 
 /// This allows the `Main` class to access private members in
 /// the generated file. The value for this is *.g.dart, where
 /// the star denotes the source file name.
-part 'main.g.dart';
+part "main.g.dart";
 
 /// This is the main data storage object for th3e entire application.
 /// It is stored this way for better type safety.

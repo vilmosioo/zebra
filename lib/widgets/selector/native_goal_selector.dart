@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_native_select/flutter_native_select.dart';
-import 'package:provider/provider.dart';
+import "package:flutter/material.dart";
+import "package:flutter_native_select/flutter_native_select.dart";
+import "package:provider/provider.dart";
 
-import '../../common/constants.dart';
-import '../../model/goals.dart';
-import '../../model/report.dart';
+import "../../common/constants.dart";
+import "../../model/goals.dart";
+import "../../model/report.dart";
 
 /// Widget to display a native selector for a list of goals.
 class NativeGoalSelector extends StatelessWidget {

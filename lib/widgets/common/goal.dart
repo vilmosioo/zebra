@@ -1,8 +1,8 @@
 
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
-import '../../model/report.dart';
-import 'goal_name.dart';
+import "../../model/report.dart";
+import "goal_name.dart";
 
 class Goal extends StatelessWidget {
   final String goalName;

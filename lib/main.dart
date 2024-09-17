@@ -1,11 +1,11 @@
 
-import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import "package:flutter/material.dart";
+import "package:hive_flutter/hive_flutter.dart";
 
-import 'common/constants.dart';
-import 'model/main.dart';
-import 'model/report.dart';
-import 'widgets/home.dart';
+import "common/constants.dart";
+import "model/main.dart";
+import "model/report.dart";
+import "widgets/home.dart";
 
 void main() async {
   Hive.registerAdapter(ReportAdapter()); 
@@ -21,7 +21,7 @@ class ZebraApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Zebra',
+      title: "Zebra",
       theme: ThemeData(
         primaryColor: const Color.fromARGB(100, 65, 180, 255),
       ),
