@@ -1,5 +1,6 @@
 
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
 
 import "../../model/report.dart";
 import "goal_name.dart";
@@ -18,7 +19,7 @@ class Goal extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 3),
       child: ElevatedButton(
         onPressed: () {
-          // navigator.push(route)
+          GoRouter.of(context).goNamed("goal", pathParameters: {"goal_name": goalName});
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).primaryColor,
