@@ -2,6 +2,7 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:hive_flutter/hive_flutter.dart";
+import "package:url_strategy/url_strategy.dart";
 
 import "common/constants.dart";
 import "model/main.dart";
@@ -24,6 +25,8 @@ final _router = GoRouter(
 );
 
 void main() async {
+  setPathUrlStrategy();
+
   Hive.registerAdapter(ReportAdapter()); 
   Hive.registerAdapter(MainAdapter()); 
   await Hive.initFlutter();
