@@ -1,6 +1,9 @@
 
 import "package:flutter/material.dart";
 
+import "../card.dart" as card_widget;
+import "../insights/heatmap.dart";
+
 class GoalPage extends StatelessWidget {
   final String? goalName;
 
@@ -12,7 +15,9 @@ class GoalPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Zebra"),
       ),
-      body: Text(goalName ?? "No goal found."),
+      body: goalName != null ? card_widget.Card(
+        child: GoalsHeatMap(goalName: goalName!,)
+      ) : const Text("No goal found."),
     );
   }
 }
