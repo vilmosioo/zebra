@@ -1,8 +1,5 @@
 
 import "package:flutter/material.dart";
-import "package:provider/provider.dart";
-
-import "../../model/goals.dart";
 
 class GoalPage extends StatelessWidget {
   final String? goalName;
@@ -11,14 +8,11 @@ class GoalPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => GoalsModel(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Zebra"),
-        ),
-        body: Text(goalName ?? "No goal found."),
-      )
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Zebra"),
+      ),
+      body: Text(goalName ?? "No goal found."),
     );
   }
 }
