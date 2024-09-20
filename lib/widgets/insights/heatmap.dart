@@ -28,7 +28,7 @@ class GoalsHeatMap extends StatelessWidget {
           throw "Selected goal does not exist";
         }
         final datasets = <DateTime, int>{};
-        for (var report in selectedGoal) {
+        for (var report in selectedGoal.reports) {
           datasets[format.parse(report.date)] = report.isCompleted ? 1 : 0;
         }
         return HeatMap(

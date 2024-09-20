@@ -22,12 +22,12 @@ class GoalsPage extends StatelessWidget {
         goalNames.sort((a, b) {
           final aGoal = goals[a]!;
           final bGoal = goals[b]!;
-          return bGoal.length - aGoal.length;
+          return bGoal.reports.length - aGoal.reports.length;
         });
         return ListView.builder(
           itemCount: goalNames.length,
           itemBuilder: (BuildContext context, int index) {
-            return Goal(goalName: goalNames[index], reports: goals[goalNames[index]] ?? List.empty());
+            return Goal(goalName: goalNames[index], reports: goals[goalNames[index]]?.reports ?? List.empty());
           }
         );
       }
