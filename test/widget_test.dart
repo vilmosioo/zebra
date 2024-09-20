@@ -12,7 +12,7 @@ import "package:hive_test/hive_test.dart";
 import "package:zebra/common/constants.dart";
 
 import "package:zebra/main.dart";
-import "package:zebra/model/main.dart";
+import "package:zebra/model/hive/main.dart";
 
 void main() {
   Box? box;

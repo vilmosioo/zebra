@@ -6,8 +6,8 @@ import "package:hive_flutter/hive_flutter.dart";
 
 import "../common/constants.dart";
 import "../common/util.dart";
-import "../model/main.dart";
-import "../model/report.dart";
+import "../model/hive/main.dart";
+import "../model/hive/report.dart";
 
 
 /// Widget that display an upload button that accepts Finch backup zip file.

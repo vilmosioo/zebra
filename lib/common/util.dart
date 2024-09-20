@@ -2,7 +2,7 @@ import "dart:convert";
 
 import "package:archive/archive.dart";
 import "package:file_picker/file_picker.dart";
-import "../model/goal.dart";
+import "../model/json/goal.dart";
 
 /// Function that parses Finch zip export file and updates the goals model.
 Future<Map<String, List<Goal>>> getAndParseFinchExport(FilePickerResult? result) async {
