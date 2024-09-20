@@ -2,7 +2,7 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 
-import "../../model/report.dart";
+import "../../model/hive/report.dart";
 import "goal_name.dart";
 
 class Goal extends StatelessWidget {

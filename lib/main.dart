@@ -5,8 +5,8 @@ import "package:hive_flutter/hive_flutter.dart";
 import "package:url_strategy/url_strategy.dart";
 
 import "common/constants.dart";
-import "model/main.dart";
-import "model/report.dart";
+import "model/hive/main.dart";
+import "model/hive/report.dart";
 import "widgets/home.dart";
 import "widgets/pages/goal.dart";
 
