@@ -10,9 +10,9 @@ DateFormat format = DateFormat("E, d LLL y");
 
 /// Widget to display a calendar heatmap of a specific goal.
 class GoalsHeatMapCalendar extends StatelessWidget {
-  final String goalName;
+  final String id;
 
-  const GoalsHeatMapCalendar({super.key, required this.goalName});
+  const GoalsHeatMapCalendar({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class GoalsHeatMapCalendar extends StatelessWidget {
         if (box.isEmpty) {
           return const SizedBox();
         }
-        final selectedGoal = box.get(mainKey)?.goals[goalName];
+        final selectedGoal = box.get(mainKey)?.goals[id];
         if (selectedGoal == null) {
           throw "Selected goal does not exist";
         }

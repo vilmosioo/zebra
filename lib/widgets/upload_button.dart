@@ -25,14 +25,15 @@ class UploadButton extends StatelessWidget {
       var uuid = const Uuid();
       for (var key in goals.keys) {
         final goal = goals[key];
+        final id = uuid.v4();
         if (goal == null) {
           continue;
         }
-        if (reports[key] == null) {
-          reports[key] = Goal(id: uuid.v4(), name: key, reports: []);
+        if (reports[id] == null) {
+          reports[id] = Goal(id: id, name: key, reports: []);
         }
         for (var g in goal) {
-          reports[key]?.reports.add(Report(date: g.date, isCompleted: g.completedTime != ""));
+          reports[id]?.reports.add(Report(date: g.date, isCompleted: g.completedTime != ""));
         }
       }
       await box.delete(mainKey);
