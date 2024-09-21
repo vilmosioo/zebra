@@ -19,7 +19,7 @@ class GoalAdapter extends TypeAdapter<Goal> {
     return Goal(
       name: fields[0] as String,
       reports: (fields[1] as List).cast<Report>(),
-      id: fields[2] as int,
+      id: fields[2] as String,
     );
   }
 
