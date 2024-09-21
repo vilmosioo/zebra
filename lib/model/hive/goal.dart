@@ -10,11 +10,14 @@ part "goal.g.dart";
 /// This class is written to hive, so it needs a type adapter.
 @HiveType(typeId: 3)
 class Goal {
-  Goal({ required this.name, required this.reports });
+  Goal({ required this.name, required this.reports, required this.id });
 
   @HiveField(0)
   String name;
 
   @HiveField(1)
   List<Report> reports;
+
+  @HiveField(2)
+  String id;
 }
