@@ -19,7 +19,7 @@ class Goal extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 3),
       child: ElevatedButton(
         onPressed: () {
-          GoRouter.of(context).goNamed("goal", pathParameters: {"goal_name": goalName});
+          GoRouter.of(context).goNamed("goal", pathParameters: {"id": goal.id});
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).primaryColor,

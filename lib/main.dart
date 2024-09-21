@@ -21,8 +21,8 @@ final _router = GoRouter(
     ),
     GoRoute(
       name: "goal",
-      path: "/goals/:goal_name",
-      builder: (context, state) => GoalPage(goalName: state.pathParameters["goal_name"] ?? "No goal found",),
+      path: "/goals/:id",
+      builder: (context, state) => GoalPage(goalName: state.pathParameters["id"] ?? "No goal found",),
     ),
   ],
 );
