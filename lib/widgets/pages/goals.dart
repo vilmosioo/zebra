@@ -27,7 +27,7 @@ class GoalsPage extends StatelessWidget {
         return ListView.builder(
           itemCount: goalNames.length,
           itemBuilder: (BuildContext context, int index) {
-            return Goal(goalName: goalNames[index], reports: goals[goalNames[index]]?.reports ?? List.empty());
+            return Goal(goal: goals[goalNames[index]]!);
           }
         );
       }
