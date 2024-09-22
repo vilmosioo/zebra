@@ -3,9 +3,11 @@ import "package:file_picker/file_picker.dart";
 import "package:flutter/material.dart";
 import "package:fluttertoast/fluttertoast.dart";
 import "package:hive_flutter/hive_flutter.dart";
+import "package:uuid/uuid.dart";
 
 import "../common/constants.dart";
 import "../common/util.dart";
+import "../model/hive/goal.dart";
 import "../model/hive/main.dart";
 import "../model/hive/report.dart";
 
@@ -19,17 +21,19 @@ class UploadButton extends StatelessWidget {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ["zip"], withData: true );
       final goals = await getAndParseFinchExport(result);
-      final reports = <String, List<Report>>{};
+      final reports = <String, Goal>{};
+      var uuid = const Uuid();
       for (var key in goals.keys) {
         final goal = goals[key];
+        final id = uuid.v4();
         if (goal == null) {
           continue;
         }
-        if (reports[key] == null) {
-          reports[key] = [];
+        if (reports[id] == null) {
+          reports[id] = Goal(id: id, name: key, reports: []);
         }
         for (var g in goal) {
-          reports[key]?.add(Report(date: g.date, isCompleted: g.completedTime != ""));
+          reports[id]?.reports.add(Report(date: g.date, isCompleted: g.completedTime != ""));
         }
       }
       await box.delete(mainKey);

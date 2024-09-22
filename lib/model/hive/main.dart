@@ -1,6 +1,6 @@
 import "package:hive_flutter/hive_flutter.dart";
 
-import "report.dart";
+import "goal.dart";
 
 /// This allows the `Main` class to access private members in
 /// the generated file. The value for this is *.g.dart, where
@@ -18,5 +18,5 @@ class Main {
   Main({ required this.goals });
 
   @HiveField(0)
-  Map<String, List<Report>> goals;
+  Map<String, Goal> goals;
 }

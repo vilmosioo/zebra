@@ -6,9 +6,9 @@ import "../insights/heatmap.dart";
 import "../insights/heatmap_calendar.dart";
 
 class GoalPage extends StatelessWidget {
-  final String? goalName;
+  final String? id;
 
-  const GoalPage({super.key, required this.goalName});
+  const GoalPage({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +16,13 @@ class GoalPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Zebra"),
       ),
-      body: goalName != null ? Column(
+      body: id != null ? Column(
         children: [
           card_widget.Card(
-            child: GoalsHeatMapCalendar(goalName: goalName!,)
+            child: GoalsHeatMapCalendar(id: id!,)
           ),
           card_widget.Card(
-            child: GoalsHeatMap(goalName: goalName!,)
+            child: GoalsHeatMap(id: id!,)
           ),
         ]
       ) : const Text("No goal found."),

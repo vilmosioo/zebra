@@ -1,32 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'main.dart';
+part of 'goal.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class MainAdapter extends TypeAdapter<Main> {
+class GoalAdapter extends TypeAdapter<Goal> {
   @override
-  final int typeId = 2;
+  final int typeId = 3;
 
   @override
-  Main read(BinaryReader reader) {
+  Goal read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Main(
-      goals: (fields[0] as Map).cast<String, Goal>(),
+    return Goal(
+      name: fields[0] as String,
+      reports: (fields[1] as List).cast<Report>(),
+      id: fields[2] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Main obj) {
+  void write(BinaryWriter writer, Goal obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.goals);
+      ..write(obj.name)
+      ..writeByte(1)
+      ..write(obj.reports)
+      ..writeByte(2)
+      ..write(obj.id);
   }
 
   @override
@@ -35,7 +41,7 @@ class MainAdapter extends TypeAdapter<Main> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is MainAdapter &&
+      other is GoalAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

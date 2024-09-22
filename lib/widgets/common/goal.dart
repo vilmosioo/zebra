@@ -2,14 +2,13 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 
-import "../../model/hive/report.dart";
+import "../../model/hive/goal.dart"  as model;
 import "goal_name.dart";
 
 class Goal extends StatelessWidget {
-  final String goalName;
-  final List<Report> reports;
+  final model.Goal goal;
 
-  const Goal({super.key, required this.goalName, required this.reports});
+  const Goal({super.key, required this.goal});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class Goal extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 3),
       child: ElevatedButton(
         onPressed: () {
-          GoRouter.of(context).goNamed("goal", pathParameters: {"goal_name": goalName});
+          GoRouter.of(context).goNamed("goal", pathParameters: {"id": goal.id});
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).primaryColor,
@@ -29,7 +28,7 @@ class Goal extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(2)),
           ),
         ),
-        child: GoalName(completion: reports.length, goalName: goalName,)
+        child: GoalName(completion: goal.reports.length, goalName: goal.name,)
       )
     );
     // return Container(
