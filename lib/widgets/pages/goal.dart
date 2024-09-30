@@ -2,6 +2,7 @@
 import "package:flutter/material.dart";
 
 import "../card.dart" as card_widget;
+import "../common/smart_goal_name.dart";
 import "../insights/heatmap.dart";
 import "../insights/heatmap_calendar.dart";
 
@@ -18,6 +19,7 @@ class GoalPage extends StatelessWidget {
       ),
       body: id != null ? Column(
         children: [
+          SmartGoalName(id: id!),
           card_widget.Card(
             child: GoalsHeatMapCalendar(id: id!,)
           ),
