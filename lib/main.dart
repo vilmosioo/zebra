@@ -10,6 +10,7 @@ import "model/hive/main.dart";
 import "model/hive/report.dart";
 import "widgets/home.dart";
 import "widgets/pages/goal.dart";
+import "widgets/pages/journey.dart";
 
 // GoRouter configuration
 final _router = GoRouter(
@@ -18,6 +19,11 @@ final _router = GoRouter(
       path: "/",
       name: "home",
       builder: (context, state) => const ZebraHomePage(),
+    ),
+    GoRoute(
+      name: "journey",
+      path: "/journey",
+      builder: (context, state) => const JourneyPage(),
     ),
     GoRoute(
       name: "goal",
