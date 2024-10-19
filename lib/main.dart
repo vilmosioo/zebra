@@ -9,6 +9,7 @@ import "model/hive/goal.dart";
 import "model/hive/main.dart";
 import "model/hive/report.dart";
 import "widgets/home.dart";
+import "widgets/pages/freedom.dart";
 import "widgets/pages/goal.dart";
 import "widgets/pages/journey.dart";
 
@@ -24,6 +25,11 @@ final _router = GoRouter(
       name: "journey",
       path: "/journey",
       builder: (context, state) => const JourneyPage(),
+    ),
+    GoRoute(
+      name: "freedom",
+      path: "/freedom",
+      builder: (context, state) => const FreedomPage(),
     ),
     GoRoute(
       name: "goal",
